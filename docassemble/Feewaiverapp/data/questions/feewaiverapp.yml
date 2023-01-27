@@ -1,6 +1,7 @@
 ---
 include:
   - docassemble.AssemblyLine:assembly_line.yml
+  - ptla_custom_organization.yml
 ---
 metadata:
   title: |
@@ -251,8 +252,7 @@ id: Signature test
 question: |
   Sign your name
 subquestion: |
-  By signing your name, you agree to
-  our terms and conditions.
+  By signing your name, you are saying that: 1) The information on this form is true. 2) You are filing this in good faith. 3) You are not able to pay the fees you have asked to have waived. 4) If you become able to pay those fees while this case is going on, or if you win a settlement, that you will pay any fees that were waived. 
 signature: user_signature
 under: |
   ${ "Sign your name here" }
