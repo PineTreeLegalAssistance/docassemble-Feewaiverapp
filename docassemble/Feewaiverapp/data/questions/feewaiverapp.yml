@@ -94,6 +94,7 @@ code: |
   users[0].address.address
   user_email
   set_progress(64)
+  feewaiverapp_preview_question
   user_signature
   interview_order_feewaiverapp = True
 ---
