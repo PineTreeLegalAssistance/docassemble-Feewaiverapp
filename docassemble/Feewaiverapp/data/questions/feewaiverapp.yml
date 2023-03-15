@@ -257,31 +257,31 @@ signature: user_signature
 under: |
   ${ "Sign your name here" }
 ---
-#id: preview feewaiverapp
-#question: |
-#  Preview your form before you sign it
-#subquestion: |
-#  Here is a preview of the form you will sign on the next page.   
-#  
-#  ${ al_court_bundle.as_pdf(key='preview') }
-#
-#  Click the image to open it in a new tab. Click the "Edit answers" button
-#  to edit your answers.
-#
-#  ${ action_button_html(url_action('review_feewaiverapp'), label='Edit answers', color='info') }
-#  
-#  Remember to come back to this window to continue and sign your form.
-#continue button field: feewaiverapp_preview_question    
+id: preview feewaiverapp
+question: |
+  Preview your form before you sign it
+subquestion: |
+  Here is a preview of the form you will sign on the next page.   
+  
+  ${ al_court_bundle.as_pdf(key='preview') }
+
+  Click the image to open it in a new tab. Click the "Edit answers" button
+  to edit your answers.
+
+  ${ action_button_html(url_action('review_feewaiverapp'), label='Edit answers', color='info') }
+  
+  Remember to come back to this window to continue and sign your form.
+continue button field: feewaiverapp_preview_question    
 ---
 #code: |
 #  signature_fields = ['users[0].signature']
 ---
-#code: |
+code: |
   # This is a placeholder for the addresses that will be searched
   # for matching address to court. Edit if court venue is based on 
   # a different address than the user's
-#  [user.address.address for user in users.complete_elements()]
-#  addresses_to_search = [user.address for user in users.complete_elements()]
+  [user.address.address for user in users.complete_elements()]
+  addresses_to_search = [user.address for user in users.complete_elements()]
 ---
 id: feewaiverapp review screen
 event: review_feewaiverapp
