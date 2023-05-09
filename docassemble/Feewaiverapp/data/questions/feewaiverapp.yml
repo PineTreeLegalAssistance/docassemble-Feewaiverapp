@@ -507,7 +507,7 @@ attachment:
   filename: feewaiverapp
   variable name: feewaiverapp_attachment[i]
   skip undefined: True
-  pdf template file: feewaiverapp.pdf
+  pdf template file: feewaiverapp_fromgithubsavedwithFoxEdit.pdf
   fields:
       - "plaintiff_name": ${ plaintiffs[0] }
       - "court_superior": ${ court_superior }
