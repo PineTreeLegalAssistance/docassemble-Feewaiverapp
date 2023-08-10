@@ -4,6 +4,10 @@ include:
   - ptla_custom_organization.yml
   - mainefinancialaffidavit.yml
 ---
+objects:
+  - users: ALPeopleList.using(ask_number=True,target_number=1)
+  - court_list: ALCourtLoader.using(file_name='ptlacourtaddresstest.xlsx')
+---
 metadata:
   title: |
     Maine Fee Waiver Application
@@ -84,9 +88,10 @@ code: |
   docket_number
   set_progress(16)
   filing_fee
-  no_service_by_mail
-  if no_service_by_mail == True:
-    no_service_by_mail_reason
+  if service_costs == True:
+    no_service_by_mail
+    if no_service_by_mail == True:
+      no_service_by_mail_reason
   defendants.gather()
   plaintiffs.gather()
   set_progress(32)
@@ -155,40 +160,47 @@ code: |
     user_is_defendant = True
     user_is_plaintiff = False
 ---
-id: About Your Case
+id: Court location town
 question: |
-  About Your Case
-subquestion: |
-  We need to know a bit more about the case you are involved in.
-fields:
+fields:  
+  - What is the name of the town where the court is located?: court_town
+    code: court_list._load_courts()["address_town"].unique()
+#id: About Your Case
+#question: |
+#  About Your Case
+#subquestion: |
+#  We need to know a bit more about the case you are involved in.
+#fields:
 #  - "Is this court case in Superior Court?": court_superior
 #    datatype: yesno
 #  - "Is this court case in District Court?": court_district
 #    datatype: yesno 
-  - "What is the name of the town where the court is located?": court_town
-    maxlength: 21
+#  - "What is the name of the town where the court is located?": court_town
+#    maxlength: 21  
+#  - What is the name of the town where the court is located?: court_town
+#    code: court_list._load_courts()["address_town"].unique()
 ---
-id: court county
-question: |
-  What is the name of the Maine county where the court is located?
-field: court_county
-dropdown: 
-  - "Androscoggin"
-  - "Aroostook"
-  - "Cumberland"
-  - "Franklin"
-  - "Hancock"
-  - "Kennebec"
-  - "Knox"
-  - "Lincoln"
-  - "Oxford"
-  - "Penobscot"
-  - "Piscataquis" 
-  - "Sagadahaoc"
-  - "Somerset"
-  - "Waldo"
-  - "Washington"
-  - "York"
+#id: court county
+#question: |
+#  What is the name of the Maine county where the court is located?
+#field: court_county
+#dropdown: 
+#  - "Androscoggin"
+#  - "Aroostook"
+#  - "Cumberland"
+#  - "Franklin"
+#  - "Hancock"
+#  - "Kennebec"
+#  - "Knox"
+#  - "Lincoln"
+#  - "Oxford"
+#  - "Penobscot"
+#  - "Piscataquis" 
+#  - "Sagadahaoc"
+#  - "Somerset"
+#  - "Waldo"
+#  - "Washington"
+#  - "York"
 ---
 question: |
   Is this case in District Court?
