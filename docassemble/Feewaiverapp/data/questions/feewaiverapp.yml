@@ -100,7 +100,7 @@ code: |
   users[0].address.address
   #user_email
   set_progress(64)
-  feewaiverapp_preview_question
+  #feewaiverapp_preview_question
   user_signature
   financial_affidavit_done
   interview_order_feewaiverapp = True
@@ -160,11 +160,11 @@ code: |
     user_is_defendant = True
     user_is_plaintiff = False
 ---
-id: Court location town
-question: |
-fields:  
-  - What is the name of the town where the court is located?: court_town
-    code: court_list._load_courts()["address_town"].unique()
+#id: Court location town
+#question: |
+#fields:  
+#  - What is the name of the town where the court is located?: court_town
+#    code: court_list._load_courts()["address_town"].unique()
 #id: About Your Case
 #question: |
 #  About Your Case
