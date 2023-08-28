@@ -521,15 +521,17 @@ attachment:
   filename: feewaiverapp
   variable name: feewaiverapp_attachment[i]
   skip undefined: True
-  pdf template file: feewaiverapp_fromgithubsavedwithFoxEdit.pdf
+  pdf template file: feewaiverapp_maine_clean_labeled.pdf
   fields:
-      - "plaintiff_name": ${ plaintiffs[0] }
+      - "plaintiffs_name": ${ plaintiffs[0] }
+      - "plaintiffs1_name": ${ plaintiffs[1] }
       - "court_superior": ${ court_superior }
       - "court_district": ${ court_district }
       - "court_county": ${ court_county }
       - "court_town": ${ court_town }
       - "docket_number": ${ docket_number }
-      - "defendant_name": ${ defendants[0] }
+      - "defendants_name": ${ defendants[0] }
+      - "defendants1_name": ${ defendants[1] }
       - "user_is_plaintiff": ${ user_is_plaintiff }
       - "user_is_defendant": ${ user_is_defendant }
       - "filing_fee": ${ filing_fee }

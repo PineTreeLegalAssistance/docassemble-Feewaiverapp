@@ -54,7 +54,7 @@ setup(name='docassemble.Feewaiverapp',
       url='https://courtformsonline.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['docassemble.AssemblyLine>=2.13.0'],
+      install_requires=['docassemble.AssemblyLine>=2.24.0'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/Feewaiverapp/', package='docassemble.Feewaiverapp'),
      )
