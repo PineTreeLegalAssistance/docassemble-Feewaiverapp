@@ -63,7 +63,7 @@ code: |
   al_form_type = "existing_case" 
 ---
 objects:
-  - users: ALPeopleList.using(ask_number=True,target_number=1)
+  - users: ALPeopleList.using(there_are_any=True)
 ---
 sections:
   - review_feewaiverapp: Review your answers
