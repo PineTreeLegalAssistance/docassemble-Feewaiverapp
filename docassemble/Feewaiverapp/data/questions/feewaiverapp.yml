@@ -100,9 +100,9 @@ code: |
   users[0].address.address
   #user_email
   set_progress(64)
-  #feewaiverapp_preview_question
-  user_signature
   financial_affidavit_done
+  user_signature
+  #feewaiverapp_preview_question
   interview_order_feewaiverapp = True
 ---
 ###################### Main order ######################
@@ -132,11 +132,13 @@ continue button field: feewaiverapp_intro
 question: |
   Maine Fee Waiver Application
 subquestion: |
-  You can use this Maine Fee Waiver Easy Form to ask the court to waive fees like the filing fee, mediation fee, or other court costs if you cannot afford to pay them. This tool will walk you through filling out Maine Form CV-067 'Application to Proceed Without Payment of Fees' (often called a 'fee waiver') and Maine Form CV-191 'Financial Affidavit.' These are the two forms you will need to ask the court for a fee waiver.
+  You can use this Maine Fee Waiver Form Interview to ask the court to waive fees like the filing fee, mediation fee, or other court costs if you cannot afford to pay them. 
+  
+  This tool will walk you through filling out Maine Form CV-067 'Application to Proceed Without Payment of Fees' (often called a 'fee waiver') and Maine Form CV-191 'Financial Affidavit.' These are the two forms you will need to ask the court for a fee waiver.
 ---
 id: Introduction
 question: |
-  Before you begin
+  What you will need to complete these forms
 subquestion: |
   Before you begin, you should gather any documents that will help you answer these questions. For these forms you will need information about:
   <ul>
@@ -274,9 +276,14 @@ fields:
 ---
 id: Signature test
 question: |
-  Sign your name
+  Sign your Application to Proceed Without Payment of Fees
 subquestion: |
-  By signing your name, you are saying that: 1) The information on this form is true. 2) You are filing this in good faith. 3) You are not able to pay the fees you have asked to have waived. 4) If you become able to pay those fees while this case is going on, or if you win a settlement, that you will pay any fees that were waived. 
+  By signing your name, you are saying that: 
+  <ol>
+  <li>The information on this form is true.</li> 
+  <li>You are filing this in good faith.</li> 
+  <li>You are not able to pay the fees you have asked to have waived.</li> 
+  <li>If you become able to pay those fees while this case is going on, or if you win a settlement, that you will pay any fees that were waived.</li> 
 signature: user_signature
 under: |
   ${ "Sign your name here" }
