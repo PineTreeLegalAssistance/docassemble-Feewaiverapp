@@ -78,8 +78,8 @@ code: |
   nav.set_section("review_feewaiverapp")
   # Below sets the user_role and user_ask_role by asking a question.
   # You can set user_ask_role directly instead to either 'plaintiff' or 'defendant'
-  user_ask_role
   Introduction
+  user_ask_role
   user_is_plaintiff
   court_selection
   court_district
@@ -132,13 +132,22 @@ continue button field: feewaiverapp_intro
 question: |
   Maine Fee Waiver Application
 subquestion: |
-  You can use this Maine Fee Waiver Form to ask the court to waive fees like the filing fee, mediation fee, or other court costs if you cannot afford to pay them. You will also need to complete another form, CV-191, to complete your fee waiver application.
+  You can use this Maine Fee Waiver Easy Form to ask the court to waive fees like the filing fee, mediation fee, or other court costs if you cannot afford to pay them. This tool will walk you through filling out Maine Form CV-067 'Application to Proceed Without Payment of Fees' (often called a 'fee waiver') and Maine Form CV-191 'Financial Affidavit.' These are the two forms you will need to ask the court for a fee waiver.
 ---
 id: Introduction
 question: |
-  Introduction
+  Before you begin
 subquestion: |
-  Welcome to our easy Maine fee waiver application! This interview will take you through the process of filling out your Maine Application to Proceed without Payment of Fees. At the end, you will be able to save or print your completed form for filing with the court in your case.
+  Before you begin, you should gather any documents that will help you answer these questions. For these forms you will need information about:
+  <ul>
+  <li>The court case you need the fee waiver for, including the names of other people involved in the court case, and the docket number if there is one.</li>
+  <li>Your income, including information about your employer, or any public benefits you get.</li>
+  <li>Your expenses, for things like housing, food, other bills, and debts you are paying.</li>
+  <li>Your assets - things you own that have cash value - including bank accounts, vehicles, and other items worth $250 or more.</li>
+  <li>Your living situation, and if you share expenses with the people you live with.</li>
+  <li>Any child support you pay or get.</li>
+  </ul>
+  We will only ask questions needed to complete these forms.
 continue button field: Introduction
 ---
 #id: About You
