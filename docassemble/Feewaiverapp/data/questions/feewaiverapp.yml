@@ -5,7 +5,7 @@ include:
   - mainefinancialaffidavit.yml
 ---
 objects:
-  - users: ALPeopleList.using(ask_number=True,target_number=1)
+  - users: ALPeopleList.using(there_are_any=True)
   - court_list: ALCourtLoader.using(file_name='ptlacourtaddresstest.xlsx')
 ---
 metadata:
@@ -206,8 +206,8 @@ question: |
   Is this case in District Court?
 field: court_selection
 buttons:
-  - "You bet": True
-  - "No way": False
+  - "Yes, it's in District Court": True
+  - "No, it's in Superior Court": False
 ---
 code: |
   if court_selection == True:
@@ -583,9 +583,9 @@ attachment:
       - "plaintiffs1_name": ${ plaintiffs[1] }
       - "court_county": ${ court_county }
       - "court_town": ${ court_town }
-      - "court_superior": ${ court_type == "superior" }
-      - "court_district": ${ court_type == "district" }
-      - "court_criminal": ${ court_type == "criminal" }
+      - "court_superior": ${ court_superior }
+      - "court_district": ${ court_district }
+      #- "court_criminal": ${ court_type == "criminal" }
       - "docket_number": ${ docket_number }
       - "defendants_name": ${ defendants[0] }
       - "defendants1_name": ${ defendants[1] }
