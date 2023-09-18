@@ -702,7 +702,7 @@ attachment:
       - "child_support_paid_monthly": ${ child_support_schedule == "child_support_paid_monthly" }
       - "child_support_paid_other_schedule": ${ child_support_schedule == "child_support_paid_other_schedule" }
       - "user_lives_alone": ${ user_lives_alone }
-      - "user_lives_with_someone": ${ user_lives_alone == False or user_household_children_plus_adults == True }
+      - "user_lives_with_someone": ${user_household_children_plus_adults == True }
       - "user_lives_with_spouse": ${ user_housemate_selection["user_lives_with_spouse"] == True }
       - "user_lives_with_friend": ${ user_housemate_selection["user_lives_with_friend"] == True }
       - "user_lives_with_parent": ${ user_housemate_selection["user_lives_with_parent"] == True }
