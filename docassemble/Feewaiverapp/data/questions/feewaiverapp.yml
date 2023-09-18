@@ -608,9 +608,9 @@ attachment:
       - "defendants_name": ${ defendants[0] }
       - "defendants1_name": ${ defendants[1] }
       - "user_name": ${ users[0] }
-      - "support_fee_waiver": ${ support_fee_waiver }
-      - "support_other_text": ${ support_other_text }
-      - "support_other": ${ support_fee_waiver == False }
+      - "support_fee_waiver": ${ support_fee_waiver = True }
+      #- "support_other_text": ${ support_other_text }
+      #- "support_other": ${ support_fee_waiver }
       - "user_address_on_one_line": ${ users[0].address.on_one_line() }
       - "users_birthdate": ${ users[0].birthdate.format() }
       - "user_phone_number": ${ users[0].phone_number }
