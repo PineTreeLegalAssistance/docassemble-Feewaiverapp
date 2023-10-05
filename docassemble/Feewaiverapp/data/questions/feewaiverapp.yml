@@ -8,6 +8,9 @@ objects:
   - users: ALPeopleList.using(there_are_any=True)
   - court_list: ALCourtLoader.using(file_name='ptlacourtaddresstest.xlsx')
 ---
+code: |
+  court_data = court_list._load_courts() 
+---
 metadata:
   title: |
     Maine Fee Waiver Application
@@ -30,7 +33,7 @@ data:
   short title: >-
     Maine Fee Waiver
   description: |-
-    This interview will complete Maine Judicial Branch Form CV-067, the Application to Proceed without Payment of Fees.
+    This interview will complete Maine Judicial Branch Form CV-067, the Application to Proceed without Payment of Fees and the required Financial Affidavit, Form CV-191.
   original_form: >-
     https://mjbportal.courts.maine.gov/CourtForms/FormsLists/DownloadForm?strFormNumber=CV-067
   allowed courts: 
@@ -73,6 +76,7 @@ comment: |
   Controls order and branching logic for questions specific to this form
 id: interview_order_feewaiverapp
 code: |
+  #county_output
   # Set the allowed courts for this interview
   allowed_courts = interview_metadata["feewaiverapp"]["allowed courts"]
   nav.set_section("review_feewaiverapp")
@@ -84,7 +88,8 @@ code: |
   court_selection
   court_district
   court_town
-  court_county
+  court_data
+  #court_county
   docket_number
   set_progress(16)
   filing_fee
@@ -545,7 +550,7 @@ attachment:
       - "plaintiffs1_name": ${ plaintiffs[1] }
       - "court_superior": ${ court_superior }
       - "court_district": ${ court_district }
-      - "court_county": ${ court_county }
+      - "court_county": ${ court_data.loc[court_data['address_town'] == court_town, 'address_county'].values[0] }
       - "court_town": ${ court_town }
       - "docket_number": ${ docket_number }
       - "defendants_name": ${ defendants[0] }
@@ -599,7 +604,7 @@ attachment:
   fields:
       - "plaintiffs_name": ${ plaintiffs[0] }
       - "plaintiffs1_name": ${ plaintiffs[1] }
-      - "court_county": ${ court_county }
+      - "court_county": ${ court_data.loc[court_data['address_town'] == court_town, 'address_county'].values[0] }
       - "court_town": ${ court_town }
       - "court_superior": ${ court_superior }
       - "court_district": ${ court_district }
