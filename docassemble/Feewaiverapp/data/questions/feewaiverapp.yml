@@ -108,7 +108,7 @@ code: |
   set_progress(64)
   financial_affidavit_done
   user_signature
-  #feewaiverapp_preview_question
+  feewaiverapp_preview_question
   interview_order_feewaiverapp = True
 ---
 ###################### Main order ######################
