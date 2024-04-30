@@ -2,7 +2,6 @@
 include:
   - docassemble.AssemblyLine:assembly_line.yml
   - custom_ptla_theme_ngb.yml
-  #- ptla_custom_organization.yml
   - mainefinancialaffidavit.yml
 ---
 objects:
@@ -12,6 +11,10 @@ objects:
 code: |
   court_data = court_list._load_courts() 
 ---
+features:
+  css: 
+    - ptlatheme.css
+---    
 metadata:
   title: |
     Maine Fee Waiver Application
@@ -107,8 +110,8 @@ code: |
   #user_email
   set_progress(64)
   financial_affidavit_done
-  user_signature
   feewaiverapp_preview_question
+  user_signature
   interview_order_feewaiverapp = True
 ---
 ###################### Main order ######################
@@ -298,7 +301,7 @@ under: |
 ---
 id: preview feewaiverapp
 question: |
-  Preview your form before you sign it
+  Preview your Maine Application to Proceed Without Payment of Fees form before you sign it
 subquestion: |
   Here is a preview of the form you will sign on the next page.   
   

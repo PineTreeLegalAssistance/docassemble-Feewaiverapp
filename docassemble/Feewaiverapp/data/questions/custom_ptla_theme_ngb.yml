@@ -22,14 +22,14 @@ objects:
 # Metadata is used in the tab and navigation bar
 metadata:
   title: |
-    PTLA Forms Project
+    Debt Collection Hearing Helper
   short title: |
     Complete Forms Online   
   exit url: |
     https://www.ptla.org
 ---
 code: |
-  AL_ORGANIZATION_TITLE = "Maine Court Forms Project"
+  AL_ORGANIZATION_TITLE = "Pine Tree Legal Forms Project"
 ---  
 code: |
   AL_ORGANIZATION_HOMEPAGE = "https://apps.ptla.org"
@@ -73,7 +73,7 @@ comment: |
     bootstrap theme: my_theme.css
 ---
 #features:
-  #bootstrap theme: bootstrap.min_2.css
+#  bootstrap theme: ptlatheme_bootstrap.min.css
 ---
 ########################### GitHub Feedback ##############################
 ---
@@ -222,3 +222,10 @@ right: |
 #code: |
 #  trial_court = all_courts.as_court('trial_court', trial_court_index)
 #  trial_court.geolocate()  
+
+#    ${ how_to_pick_court_help_template }
+---
+#code: |
+#  trial_court = all_courts.as_court('trial_court', trial_court_index)
+#  trial_court.geolocate()  
+

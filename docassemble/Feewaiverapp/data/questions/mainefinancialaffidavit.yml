@@ -1,0 +1,1364 @@
+---
+include:
+  - docassemble.AssemblyLine:assembly_line.yml
+  - custom_ptla_theme_ngb.yml
+---
+metadata:
+  title: |
+    Maine Financial Affidavit
+  short title: |
+    Maine Financial Affidavit
+  tags:
+    - FA-00-00-00-00
+    - HE-00-00-00-00
+    - HO-00-00-00-00
+    - MO-00-00-00-00
+  authors:
+    - Jack Haycock
+---
+features:
+  css: 
+    - ptlatheme.css
+---    
+mandatory: True
+comment: |
+  Global interview metadata
+variable name: interview_metadata["mainefinancialaffidavit"]
+data:
+  al_weaver_version: "1.8.0"
+  generated on: "2023-01-31"
+  title: >-
+    Maine Financial Affidavit
+  short title: >-
+    Maine Financial Affidavit
+  description: |-
+    MJB CV-191 Financial Affidavit. A necessary part of any Application to Proceed Without Payment of Fees in Maine court cases.
+  original_form: >-
+    https://mjbportal.courts.maine.gov/CourtForms/FormsLists/DownloadForm?strFormNumber=CV-191
+  allowed courts: 
+    - "Criminal Court"
+    - "District Court"
+    - "Superior Court"
+  categories:
+    - "FA-00-00-00-00"
+    - "HE-00-00-00-00"
+    - "HO-00-00-00-00"
+    - "MO-00-00-00-00"
+  typical role: "unknown"
+  generate download screen: True
+---
+code: |
+  interview_metadata['main_interview_key'] =  'mainefinancialaffidavit'
+---
+code: |
+  # This controls the default country and list of states in address field questions
+  AL_DEFAULT_COUNTRY = "US"
+---
+code: |
+  # This controls the default state in address field questions
+  AL_DEFAULT_STATE = "ME"
+---
+code: |
+  github_repo_name =  'docassemble-Mainefinancialaffidavit'
+---
+code: |
+  interview_short_title = "Fill in your Maine Financial Affidavit"
+---
+code: |
+  al_form_type = "existing_case" 
+---
+objects:
+  - users: ALPeopleList.using(ask_number=True,target_number=1)
+  - court_list: ALCourtLoader.using(file_name='ptlacourtaddresstest.xlsx')
+---
+sections:
+  - review_mainefinancialaffidavit: Review your answers
+---
+#################### Interview order #####################
+comment: |
+  Controls order and branching logic for questions specific to this form
+id: interview_order_mainefinancialaffidavit
+code: |
+  # Set the allowed courts for this interview
+  allowed_courts = interview_metadata["mainefinancialaffidavit"]["allowed courts"]
+  nav.set_section("review_mainefinancialaffidavit")
+  # Below sets the user_role and user_ask_role by asking a question.
+  # You can set user_ask_role directly instead to either 'plaintiff' or 'defendant'
+  user_ask_role
+  #Introduction
+  #court_type
+  #court_county
+  court_town
+  #courts[0].address.address
+  docket_number
+  support_fee_waiver
+  #if support_fee_waiver == False:
+    #support_other_text  
+  plaintiffs.gather()
+  set_progress(16)
+  defendants.gather()
+  users.gather()
+  set_parts(subtitle=str(users))
+  users[0].birthdate
+  users[0].address.address
+  users[0].phone_number
+  set_progress(32)
+  users[0].mobile_number
+  users[0].email
+  user_is_employed
+  if user_is_employed == True:
+    employer_name
+    user_pay_wages
+    if user_pay_wages == False:
+      pay_period_salary
+    else:
+      user_hours_worked
+  user_gets_benefits
+  if user_gets_benefits == True:
+    user_benefits_selection
+    benefits_total_value
+  set_progress(48)
+  asset_cash_on_hand
+  asset_user_owns_house
+  expense_mortgage
+  if expense_child_support == True:
+    user_pays_child_support_for_number_of_children
+  user_lives_alone
+  if user_lives_alone == False and user_household_children_plus_adults == True:
+    user_shares_living_expenses
+  mainefinancialaffidavit_preview_question
+  acknowledge_form_terms
+  set_progress(64)
+  signature_date
+  interview_order_mainefinancialaffidavit = True
+  financial_affidavit_done = True
+---
+###################### Main order ######################
+comment: |
+  This block includes the logic for standalone interviews.
+  Delete mandatory: True to include in another interview
+#mandatory: True
+code: |
+  al_intro_screen
+  mainefinancialaffidavit_intro
+  interview_order_mainefinancialaffidavit
+  signature_date
+  # Store anonymous data for analytics / statistics
+  store_variables_snapshot(
+      persistent=True,
+      data={
+          "zip": showifdef("users[0].address.zip"),
+          "reached_interview_end": True,
+      },
+  )
+  mainefinancialaffidavit_download
+---
+comment: |
+  This question is used to introduce your interview. Please customize
+id: Maine_Financial_Affidavit
+continue button field: mainefinancialaffidavit_intro
+question: |
+  Maine Financial Affidavit
+subquestion: |
+  Use this interview to complete MJB CV-191 Financial Affidavit - a required part of a fee waiver application in Maine. You will need to print this form and sign it in front of a court clerk or notary before you can file it with the court.
+---
+#id: Introduction
+#question: |
+#  Introduction
+#subquestion: |
+#  Welcome to the Maine Financial Affidavit form!
+#continue button field: Introduction
+---
+id: Court type
+question: |
+  What court is your case in?
+fields:
+  - no label: court_type
+    datatype: radio
+    choices:
+      - District: district
+      - Superior: superior
+      - Criminal: criminal
+---
+#id: Court location county
+#question: |
+#  What is the name of the Maine county where the court is located?
+#fields:
+#  - County: court_county
+#    code: court_list._load_courts()["address_county"].unique()  
+---
+id: Court location town
+question: |
+fields:  
+  - What is the name of the town where the court is located?: court_town
+    code: court_list._load_courts()["address_town"].unique()
+---
+id: Fee waiver support set
+code: support_fee_waiver = True
+---
+
+#id: Fee waiver support
+#question: |
+#fields:
+#  - "Are you using this form with your Application to Proceed Without Payment of Fees (fee waiver)?": #support_fee_waiver
+    #code: support_fee_waiver = True
+#    datatype: yesnoradio
+    
+---
+#id: Affidavit support
+#question: |
+#fields:
+#  - "Why are you filing this form with the court?": support_other_text
+#    maxlength: 78
+---
+id: Employment Status
+question: |
+fields:
+  - "Are you employed?": user_is_employed
+    datatype: yesnoradio
+---
+id: About Your Employer
+question: |
+  About Your Employer
+fields:
+  - "Employer name": employer_name
+    maxlength: 49
+  - "Employer address": employer_address_on_one_line
+    maxlength: 87
+  - "Work Telephone": user_work_number
+    datatype: number
+---
+id: Employment Method of Payment
+question: |
+  Are you paid a set salary, or an hourly wage?
+fields: 
+  - "Are you paid by the hour (an hourly wage)?": user_pay_wages
+    datatype: yesnoradio
+  - "What is your hourly wage?": user_hourly_wage
+    datatype: currency
+    show if: user_pay_wages
+  - "What is your gross pay each pay period?": user_gross_pay
+    datatype: currency 
+    hide if:  user_pay_wages
+---
+id: Salary Pay Period
+question: |
+  What schedule are you paid on?
+fields: 
+  - Pay period: pay_period_salary
+    input type: radio
+    choices:
+      - Weekly: user_salary_paid_weekly
+      - Biweekly (once every two weeks): user_salary_paid_biweekly
+      - Monthly: user_salary_paid_monthly
+      - Other: user_salary_paid_other
+  - Payment schedule: user_salary_paid_other_term
+    show if: 
+      variable: pay_period_salary
+      is: user_salary_paid_other
+    maxlength: 18
+---
+id: Wage Pay Period
+question: |
+  Tell us about the hourly wages you are paid
+fields:
+  - How many hours do you work in each pay period?: user_hours_worked
+    datatype: number
+  - Pay Period: pay_period_wage
+    input type: radio
+    choices:
+      - Weekly: user_hours_worked_weekly
+      - Biweekly (once every two weeks): user_hours_worked_biweekly
+      - Monthly: user_hours_worked_monthly
+      - Other: user_hours_worked_other
+  - Payment schedule: user_hours_worked_other_term
+    show if: 
+      variable: pay_period_wage
+      is: user_hours_worked_other
+    maxlength: 18
+---
+id: Benefits
+question: |
+  Benefits
+fields:
+  - "Do you get any benefits?": user_gets_benefits
+    datatype: yesnoradio
+under: |
+  By 'benefits' we mean public benefits like TANF as well as Social Security, Unemployment, and spousal or child support.
+---
+id: Benefits Detail
+question: |
+  Information about your benefits
+fields:
+  - Which benefits do you get?: user_benefits_selection
+    datatype: checkboxes
+    none of the above: False 
+    choices:
+      - Unemployment: benefits_unemployment
+      - Social Security: benefits_social_security
+      - TANF: benefits_tanf
+      - Spousal and/or Child Support: benefits_spousal_child_support
+      - Other: benefits_other
+  - Other Benefits (please list all): benefits_other_text
+    show if: 
+      variable: user_benefits_selection["benefits_other"]
+      is: True
+    maxlength: 78   
+---
+id: Benefits Amounts
+question: |
+   More details about your benefits
+fields:
+  - What is the total dollar amount of all the benefits you get?: benefits_total_value
+    datatype: currency
+    min: 0
+  - How often do you get these benefits?: user_benefits_schedule
+    input type: radio
+    choices:
+      - I get this amount in benefits weekly: benefits_time_weekly
+      - I get this amount in benefits biweekly (every two weeks): benefits_time_biweekly
+      - I get this amount in benefits monthly: benefits_time_monthly
+      - I get this amount in benefits on another schedule: benefits_time_other
+  - How often do you get these benefits?: benefits_time_other_term
+    show if: 
+      variable: user_benefits_schedule
+      is: benefits_time_other
+    maxlength: 18
+---
+id: Assets
+question: |
+  Assets - Cash
+subquestion: |
+  Questions about your finances and belongings
+fields:
+  - "Do you have any cash on hand?": asset_cash_on_hand
+    datatype: yesnoradio
+  - "How much cash on hand?": asset_cash_on_hand_amount
+    show if: asset_cash_on_hand
+    datatype: currency
+    min: 0
+  - "Do you have any money in the bank?": asset_cash_in_bank
+    datatype: yesnoradio
+  - "How much money in the bank?": asset_cash_in_bank_amount
+    show if: asset_cash_in_bank
+    datatype: currency
+    min: 0
+  - "Does anyone owe you money?": asset_owed_money
+    datatype: yesnoradio
+  - "How much money are you owed?": asset_owed_money_amount
+    show if: asset_owed_money
+    datatype: currency
+    min: 0
+  - "Have you paid any cash bail for yourself in a criminal case that is still ongoing?": asset_cash_bail
+    datatype: yesnoradio
+  - "How much cash bail did you pay?": asset_cash_bail_amount
+    show if: asset_cash_bail
+    datatype: currency
+    min: 0
+### Note to Jack - need to work out how to ask this question since not intending for this fin. aff. to be used separately at this time. Form mentions that it must be '1st party' bail.
+#  - "Cash Bail you have paid in this case": asset_cash_bail
+#    show if:
+#      variable: court_type
+#      is: "criminal"
+#    datatype: yesnoradio
+#  - "Amount of cash bail you paid in this case": asset_cash_bail_amount
+#    show if: asset_cash_bail
+#    datatype: currency
+#    min: 0
+# The code commented out above is causing the interview to not progress - plan to troubleshoot this issue down the line.
+---    
+id: Assets Continued
+question: |
+  Assets - Property
+subquestion: |
+  Questions about your finances and belongings
+fields:    
+  - "Do you own a house?": asset_user_owns_house
+    datatype: yesnoradio
+  - "What is the value of the house you own?": asset_user_owns_house_value
+    show if: asset_user_owns_house
+    datatype: currency
+    min: 0
+  - "How much do you still owe on the house?": asset_user_owns_house_amount_owed
+    show if: asset_user_owns_house
+    datatype: currency
+    min: 0
+  - "Do you own a vehicle?": asset_user_owns_vehicle
+    datatype: yesnoradio
+  - "How much is the vehicle worth?": asset_user_owns_vehicle_value
+    show if: asset_user_owns_vehicle
+    datatype: currency
+    min: 0
+  - "Do you own any recreational vehicles (like boats or ATVs)?": asset_user_owns_recreational_vehicle
+    datatype: yesnoradio
+  - "How much are any recreational vehicles you own worth?": asset_user_owns_recreational_vehicle_value
+    show if: asset_user_owns_recreational_vehicle
+    datatype: currency
+    min: 0
+  - "Do you own stocks?": asset_user_owns_stocks
+    datatype: yesnoradio
+  - "How much are your stocks worth?": asset_user_owns_stocks_value
+    show if: asset_user_owns_stocks
+    datatype: currency
+    min: 0
+  - "Do you have any other valuables worth $250 or more?": asset_user_owns_other
+    datatype: yesnoradio
+  - "What other valuables do you have?": asset_user_owns_other_text
+    show if: asset_user_owns_other
+    maxlength: 33
+  - "How much are those other valuables worth?": asset_user_owns_other_value
+    show if: asset_user_owns_other
+    datatype: currency
+    min: 0
+---
+id: Expenses - Housing
+question: |
+ Housing Expenses
+subquestion: |
+  About regular costs you may have to pay
+fields:
+  - "Do you pay a mortgage?": expense_mortgage
+    datatype: yesnoradio
+  - "Monthly mortgage amount": expense_mortgage_amount
+    show if: expense_mortgage
+    datatype: currency
+    min: 0
+  - "Do you pay rent?": expense_rent
+    datatype: yesnoradio
+  - "Monthly rent amount": expense_rent_amount
+    show if: expense_rent
+    datatype: currency
+    min: 0     
+  - "Do you pay utilities?": expense_utilities
+    datatype: yesnoradio
+  - "Monthly utilities amount": expense_utilities_amount
+    show if: expense_utilities
+    datatype: currency
+    min: 0
+  - "Food costs?": expense_food
+    datatype: yesnoradio
+  - "Monthly food costs": expense_food_amount
+    show if: expense_food
+    datatype: currency
+    min: 0
+  - "Heating costs?": expense_heat
+    datatype: yesnoradio
+  - "Monthly heating costs": expense_heat_amount
+    show if: expense_heat
+    datatype: currency
+    min: 0 
+  - "Cable costs?": expense_cable
+    datatype: yesnoradio
+  - "Monthly cable costs": expense_cable_amount
+    show if: expense_cable
+    datatype: currency
+    min: 0    
+---
+id: Expenses - Other
+question: |
+  Other Expenses
+subquestion: |
+  More about regular costs you have to you
+fields:
+  - "Do you pay child support?": expense_child_support
+    datatype: yesnoradio
+  - "Monthly child support amount": expense_child_support_amount
+    show if: expense_child_support
+    datatype: currency
+    min: 0
+    help: |  
+      Please enter the total amount of child support you pay each month, for all children combined. We will ask for more details later in this interview.
+#The way to more eleganty handle this child support question may be to have the 'Do you pay' question trigger the  child support details screen - and then calculate the monthly child support amount for the 'expense_child_support_amount' field - that way we only have to ask the user for how much and how often they pay, and not to have to try to reconcile the monthly/by period math all on their own. 
+  - "Credit card payments?": expense_credit_card
+    datatype: yesnoradio
+  - "Monthly credit card payments": expense_credit_card_amount
+    show if: expense_credit_card
+    datatype: currency
+    min: 0
+  - "Loan payments?": expense_loans
+    datatype: yesnoradio
+  - "Monthly loan payments": expense_loans_amount
+    show if: expense_loans
+    datatype: currency
+    min: 0    
+  - "Cell phone costs?": expense_cell_phone
+    datatype: yesnoradio
+  - "Monthly cell phone costs": expense_cell_phone_amount
+    show if: expense_cell_phone
+    datatype: currency
+    min: 0
+  - "Other expenses?": expense_other
+    datatype: yesnoradio
+  - "What other expenses do you have?": expense_other_text
+    show if: expense_other
+    maxlength: 19
+  - "What is the monthly amount of any other expenses you have?": expense_other_amount
+    show if: expense_other
+    datatype: currency
+    min: 0
+---
+id: Living Situation Children
+question: |
+  Living Situation
+subquestion: |
+  About who you live with
+fields:
+  - "Do you live alone?": user_lives_alone
+    datatype: yesnoradio
+  - "Do any children live with you?": children_live_with_user
+    show if: 
+      variable: user_lives_alone
+      is: False
+    datatype: yesnoradio
+  - "How many children live with you?": number_children_live_with_user
+    datatype: integer
+    min: 0
+    show if:
+      variable: children_live_with_user
+      is: True
+  - "Do you live with any other adults?": user_household_children_plus_adults
+    datatype: yesnoradio 
+    show if:
+      variable: user_lives_alone
+      is: False
+#Early bug hunting: As written, someone could say they don't live alone, but also don't live with any children, or adults. It doesn't break the interview, but it does create a result that probably is not accurate capturing that person's situation - or it just leaves room for error/mis-click where there doesn't need to be. Could this be addressed by making one or both of the fields go through some kind of check and throwing a message of 'You said you don't live alone, but also said you do not live with any adults or children.' Not sure the best way to handle this one.
+  - "Who do you live with?": user_housemate_selection
+    datatype: checkboxes
+    choices:
+      - Spouse: user_lives_with_spouse
+      - A friend: user_lives_with_friend
+      - Your parent(s): user_lives_with_parent
+      - Another person or people: user_lives_with_other
+    show if: 
+      variable: user_household_children_plus_adults
+      is: True
+  - "Who do you live with? (How are you related, i.e. 'roommate,' 'grandparent,' or 'dating partner')": user_lives_with_other_text  
+    show if: 
+      variable: user_housemate_selection["user_lives_with_other"]
+      is: True
+    maxlength: 24
+---
+id: Living Expenses
+question: |
+  Living Situation
+subquestion: |
+  About who you live with and how you share expenses
+fields:  
+  - "Do you share living expenses with those you live with?": user_shares_living_expenses
+    datatype: yesnoradio
+  - "How much do others contribute to your shared living expenses?": shared_living_expenses_amount
+    datatype: currency
+    min: 0
+    show if: user_shares_living_expenses
+  - "How often do they contribute this amount?": shared_living_expenses_schedule
+    input type: radio
+    choices:
+      - Weekly: shared_living_expenses_weekly
+      - Every two weeks (biweekly): shared_living_expenses_biweekly
+      - Monthly: shared_living_expenses_monthly
+      - Another schedule: shared_living_expenses_other
+    show if: user_shares_living_expenses
+  - "What other schedule do you use for sharing living expenses?": shared_living_expenses_other_term
+    maxlength: 47
+    show if: 
+      variable: shared_living_expenses_schedule
+      is: shared_living_expenses_other
+---
+id: Child Support
+question: |
+  Child Support
+subquestion: |
+  About any child support you may pay
+fields:
+#  - "Do you pay child support?": user_pays_child_support
+#    datatype: yesno
+  - "How many children do you pay child support for?": user_pays_child_support_for_number_of_children
+    datatype: integer
+    min: 0
+  - "How much child support do you pay in total?": user_pays_child_support_amount
+    datatype: currency
+    min: 0
+  - "How often do you pay this amount in child support?": child_support_schedule
+    input type: radio
+    choices:
+      - Weekly: child_support_paid_weekly
+      - Every two weeks (biweekly): child_support_paid_biweekly
+      - Monthly: child_support_paid_monthly
+      - A different schedule: child_support_paid_other_schedule 
+  - "What other schedule do you pay your child support on?": child_support_paid_other_schedule_term
+    maxlength: 47
+    show if: 
+      variable: child_support_schedule
+      is: child_support_paid_other_schedule
+---
+id: Understanding this form
+question: |
+  Understanding the Financial Affidavit 
+subquestion: |
+  The Financial Affidavit (CV-191) requires a notarized signature - this means a signature witnessed by a notary public, like a court clerk. On this screen, please read and understand what you are agreeing to with the court by filing this form. Check the boxes above each statement to show that you understand.
+fields:
+  - "I understand and agree to the Financial Affidavit form terms": acknowledge_form_terms
+    datatype: yesno
+  - note: |
+      By checking the box above, you are agreeing that: "I have read the above form, I understand it, and the answers to the questions are true. I understand and agree that further investigation may be conducted, if necessary, to verify the information that I have provided. I also understand that I have a continuing obligation, personally and through counsel, to report to the court any changes in my employment or other financial circumstances."
+  - "I swear under penalty of perjury that the statements on this form are true and correct.": truthfulness_check
+    datatype: yesno
+  - note: |
+      By checking the box above, you are agreeing that: "I swear under penalty of perjury that the above statements are true and correct. I understand that these statements are made for use as evidence in court and that I am subject to prosecution for perjury punishable by up to 5 years in prison and a fine of up to $5,000.00 if I give false information to the court."
+---
+id: preview mainefinancialaffidavit
+question: |
+  Preview your form before continuing
+subquestion: |
+  Here is a preview of the Maine Financial Affidavit you have filled out.  
+  
+  ${ al_court_bundle.as_pdf(key='preview') }
+
+  Click the image to open it in a new tab. Click the "Edit answers" button
+  to edit your answers.
+
+  ${ action_button_html(url_action('review_mainefinancialaffidavit'), label='Edit answers', color='info') }
+  
+  Remember to come back to this window to continue the interview and get your completed forms!
+continue button field: mainefinancialaffidavit_preview_question    
+---
+code: |
+  signature_fields = []
+---
+code: |
+  # This is a placeholder for the addresses that will be searched
+  # for matching address to court. Edit if court venue is based on 
+  # a different address than the user's
+  [user.address.address for user in users.complete_elements()]
+  addresses_to_search = [user.address for user in users.complete_elements()]
+---
+id: mainefinancialaffidavit review screen
+event: review_mainefinancialaffidavit
+question: |
+  Review your answers
+review:
+  - Edit: plaintiffs.revisit
+    button: |
+      **Plaintiffs**
+
+      % for item in plaintiffs:
+        * ${ item }
+      % endfor
+  - Edit: court_superior
+    button: |
+      **Superior Court**:
+      ${ word(yesno(court_superior)) }
+  - Edit: court_district
+    button: |
+      **District Court**:
+      ${ word(yesno(court_district)) }
+  - Edit: court_criminal
+    button: |
+      **Criminal Court**:
+      ${ word(yesno(court_criminal)) }
+  - Edit: courts.revisit
+    button: |
+      **Courts**
+
+      % for item in courts:
+        * ${ item }
+      % endfor
+  - Edit: court_town
+    button: |
+      **Court town**:
+      ${ court_town }
+  - Edit: docket_number
+    button: |
+      **Docket number**:
+      ${ docket_number }
+  - Edit: defendants.revisit
+    button: |
+      **Defendants**
+
+      % for item in defendants:
+        * ${ item }
+      % endfor
+  - Edit: users.revisit
+    button: |
+      **Users**
+
+      % for item in users:
+        * ${ item }
+      % endfor
+  - Edit: support_fee_waiver
+    button: |
+      **Are you using this form with your Application to Proceed Without Payment of Fees (fee waiver)?**:
+      ${ word(yesno(support_fee_waiver)) }
+  - Edit: support_other_text
+    button: |
+      **Why are you filing this form with the court?**:
+      ${ support_other_text }
+  - Edit: support_other
+    button: |
+      **Are you using this form for another reason?**:
+      ${ word(yesno(support_other)) }
+  - Edit: user_work_number
+    button: |
+      **Work Telephone**:
+      ${ user_work_number }
+  - Edit: employer_name
+    button: |
+      **Employer name**:
+      ${ employer_name }
+  - Edit: user_is_employed
+    button: |
+      **Are you employed?**:
+      ${ word(yesno(user_is_employed)) }
+  - Edit: employer_address_on_one_line
+    button: |
+      **Employer address**:
+      ${ employer_address_on_one_line }
+  - Edit: user_gross_pay
+    button: |
+      **What is your gross pay?**:
+      ${ currency(user_gross_pay) }
+  - Edit: user_pay_salary
+    button: |
+      **Are you paid a salary?**:
+      ${ word(yesno(user_pay_salary)) }
+  - Edit: user_salary_paid_weekly
+    button: |
+      **Paid weekly**:
+      ${ word(yesno(user_salary_paid_weekly)) }
+  - Edit: user_salary_paid_biweekly
+    button: |
+      **Paid biweekly**:
+      ${ word(yesno(user_salary_paid_biweekly)) }
+  - Edit: user_salary_paid_monthly
+    button: |
+      **Paid monthly**:
+      ${ word(yesno(user_salary_paid_monthly)) }
+  - Edit: user_salary_paid_other_term
+    button: |
+      **Payment schedule**:
+      ${ user_salary_paid_other_term }
+  - Edit: user_salary_paid_other
+    button: |
+      **Paid on another schedule**:
+      ${ word(yesno(user_salary_paid_other)) }
+  - Edit: user_hourly_wage
+    button: |
+      **User hourly wage**:
+      ${ user_hourly_wage }
+  - Edit: user_hours_worked
+    button: |
+      **User hours worked**:
+      ${ user_hours_worked }
+  - Edit: user_pay_wages
+    button: |
+      **Are you paid hourly wages?**:
+      ${ word(yesno(user_pay_wages)) }
+  - Edit: user_hours_worked_weekly
+    button: |
+      **Weekly hours worked**:
+      ${ word(yesno(user_hours_worked_weekly)) }
+  - Edit: user_hours_worked_biweekly
+    button: |
+      **Biweekly hours worked**:
+      ${ word(yesno(user_hours_worked_biweekly)) }
+  - Edit: user_hours_worked_monthly
+    button: |
+      **Monthly hours worked**:
+      ${ word(yesno(user_hours_worked_monthly)) }
+  - Edit: user_hours_worked_other_term
+    button: |
+      **Other term you worked?**:
+      ${ user_hours_worked_other_term }
+  - Edit: user_hours_worked_other
+    button: |
+      **Other term hours worked**:
+      ${ word(yesno(user_hours_worked_other)) }
+  - Edit: user_gets_benefits
+    button: |
+      **Do you get any benefits?**:
+      ${ word(yesno(user_gets_benefits)) }
+  - Edit: benefits_unemployment
+    button: |
+      **Unemployment**:
+      ${ word(yesno(benefits_unemployment)) }
+  - Edit: benefits_social_security
+    button: |
+      **Social Security**:
+      ${ word(yesno(benefits_social_security)) }
+  - Edit: benefits_tanf
+    button: |
+      **TANF**:
+      ${ word(yesno(benefits_tanf)) }
+  - Edit: benefits_spousal_child_support
+    button: |
+      **Spousal or Child Support**:
+      ${ word(yesno(benefits_spousal_child_support)) }
+  - Edit: benefits_other
+    button: |
+      **Other benefits**:
+      ${ word(yesno(benefits_other)) }
+  - Edit: benefits_other_text
+    button: |
+      **What other benefits?**:
+      ${ benefits_other_text }
+  - Edit: benefits_total_value
+    button: |
+      **Benefits total value**:
+      ${ currency(benefits_total_value) }
+  - Edit: benefits_time_weekly
+    button: |
+      **I get this amount in benefits weekly**:
+      ${ word(yesno(benefits_time_weekly)) }
+  - Edit: benefits_time_biweekly
+    button: |
+      **I get this amount in benefits biweekly**:
+      ${ word(yesno(benefits_time_biweekly)) }
+  - Edit: benefits_time_monthly
+    button: |
+      **I get this amount in benefits monthly**:
+      ${ word(yesno(benefits_time_monthly)) }
+  - Edit: benefits_time_other
+    button: |
+      **I get this amount in benefits on another schedule**:
+      ${ word(yesno(benefits_time_other)) }
+  - Edit: benefits_time_other_term
+    button: |
+      **I get these benefits on this schedule**:
+      ${ benefits_time_other_term }
+  - Edit: asset_cash_bail
+    button: |
+      **Cash Bail you have paid in this case**:
+      ${ word(yesno(asset_cash_bail)) }
+  - Edit: asset_cash_bail_amount
+    button: |
+      **Amount of cash bail you paid in this case**:
+      ${ currency(asset_cash_bail_amount) }
+  - Edit: asset_cash_on_hand_amount
+    button: |
+      **How much cash on hand?**:
+      ${ currency(asset_cash_on_hand_amount) }
+  - Edit: asset_cash_in_bank_amount
+    button: |
+      **How much money in the bank?**:
+      ${ currency(asset_cash_in_bank_amount) }
+  - Edit: asset_owed_money_amount
+    button: |
+      **How much money are you owed?**:
+      ${ currency(asset_owed_money_amount) }
+  - Edit: asset_cash_on_hand
+    button: |
+      **Do you have any cash on hand?**:
+      ${ word(yesno(asset_cash_on_hand)) }
+  - Edit: asset_cash_in_bank
+    button: |
+      **Do you have any money in the bank?**:
+      ${ word(yesno(asset_cash_in_bank)) }
+  - Edit: asset_owed_money
+    button: |
+      **Does anyone owe you money?**:
+      ${ word(yesno(asset_owed_money)) }
+  - Edit: asset_user_owns_house
+    button: |
+      **Do you own a house?**:
+      ${ word(yesno(asset_user_owns_house)) }
+  - Edit: asset_user_owns_house_value
+    button: |
+      **What is the value of the house you own?**:
+      ${ currency(asset_user_owns_house_value) }
+  - Edit: asset_user_owns_house_amount_owed
+    button: |
+      **How much do you still owe on the house?**:
+      ${ currency(asset_user_owns_house_amount_owed) }
+  - Edit: asset_user_owns_vehicle_value
+    button: |
+      **How much is the vehicle worth?**:
+      ${ currency(asset_user_owns_vehicle_value) }
+  - Edit: asset_user_owns_stocks_value
+    button: |
+      **How much are your stocks worth?**:
+      ${ currency(asset_user_owns_stocks_value) }
+  - Edit: asset_user_owns_vehicle
+    button: |
+      **Do you own a vehicle?**:
+      ${ word(yesno(asset_user_owns_vehicle)) }
+  - Edit: asset_user_owns_stocks
+    button: |
+      **Do you own stocks?**:
+      ${ word(yesno(asset_user_owns_stocks)) }
+  - Edit: asset_user_owns_recreational_vehicle
+    button: |
+      **Do you own any recreational vehicles (like boats or ATVs)?**:
+      ${ word(yesno(asset_user_owns_recreational_vehicle)) }
+  - Edit: asset_user_owns_recreational_vehicle_value
+    button: |
+      **How much are any recreational vehicles you own worth?**:
+      ${ currency(asset_user_owns_recreational_vehicle_value) }
+  - Edit: asset_user_owns_other_text
+    button: |
+      **What other valuables do you have?**:
+      ${ asset_user_owns_other_text }
+  - Edit: asset_user_owns_other_value
+    button: |
+      **How much are those other valuables worth?**:
+      ${ currency(asset_user_owns_other_value) }
+  - Edit: asset_user_owns_other
+    button: |
+      **Do you have any other valuables worth $250 or more?**:
+      ${ word(yesno(asset_user_owns_other)) }
+  - Edit: expense_mortgage
+    button: |
+      **Do you pay a mortgage?**:
+      ${ word(yesno(expense_mortgage)) }
+  - Edit: expense_child_support
+    button: |
+      **Do you pay child support?**:
+      ${ word(yesno(expense_child_support)) }
+  - Edit: expense_utilities
+    button: |
+      **Do you pay utilities?**:
+      ${ word(yesno(expense_utilities)) }
+  - Edit: expense_mortgage_amount
+    button: |
+      **Monthly mortgage amount**:
+      ${ currency(expense_mortgage_amount) }
+  - Edit: expense_child_support_amount
+    button: |
+      **Monthly child support amount**:
+      ${ currency(expense_child_support_amount) }
+  - Edit: expense_utilities_amount
+    button: |
+      **Monthly utilities amount**:
+      ${ currency(expense_utilities_amount) }
+  - Edit: expense_food
+    button: |
+      **Food costs?**:
+      ${ word(yesno(expense_food)) }
+  - Edit: expense_cable
+    button: |
+      **Cable costs?**:
+      ${ word(yesno(expense_cable)) }
+  - Edit: expense_credit_card
+    button: |
+      **Credit card payments?**:
+      ${ word(yesno(expense_credit_card)) }
+  - Edit: expense_food_amount
+    button: |
+      **Monthly food costs**:
+      ${ currency(expense_food_amount) }
+  - Edit: expense_cable_amount
+    button: |
+      **Monthly cable costs**:
+      ${ currency(expense_cable_amount) }
+  - Edit: expense_credit_card_amount
+    button: |
+      **Monthly credit card payments**:
+      ${ currency(expense_credit_card_amount) }
+  - Edit: expense_loans
+    button: |
+      **Loan payments?**:
+      ${ word(yesno(expense_loans)) }
+  - Edit: expense_heat
+    button: |
+      **Heating costs?**:
+      ${ word(yesno(expense_heat)) }
+  - Edit: expense_rent
+    button: |
+      **Do you pay rent?**:
+      ${ word(yesno(expense_rent)) }
+  - Edit: expense_loans_amount
+    button: |
+      **Monthly loan payments**:
+      ${ currency(expense_loans_amount) }
+  - Edit: expense_heat_amount
+    button: |
+      **Monthly heating costs**:
+      ${ currency(expense_heat_amount) }
+  - Edit: expense_rent_amount
+    button: |
+      **Monthly rent amount**:
+      ${ currency(expense_rent_amount) }
+  - Edit: expense_cell_phone
+    button: |
+      **Cell phone costs?**:
+      ${ word(yesno(expense_cell_phone)) }
+  - Edit: expense_other
+    button: |
+      **Other expenses?**:
+      ${ word(yesno(expense_other)) }
+  - Edit: expense_cell_phone_amount
+    button: |
+      **Monthly cell phone costs**:
+      ${ currency(expense_cell_phone_amount) }
+  - Edit: expense_other_text
+    button: |
+      **What other expenses do you have?**:
+      ${ expense_other_text }
+  - Edit: expense_other_amount
+    button: |
+      **What is the monthly amount of any other expenses you have?**:
+      ${ currency(expense_other_amount) }
+  - Edit: number_children_live_with_user
+    button: |
+      **How many children live with you?**:
+      ${ number_children_live_with_user }
+  - Edit: children_live_with_user
+    button: |
+      **Do any children live with you?**:
+      ${ word(yesno(children_live_with_user)) }
+  - Edit: user_pays_child_support_for_number_of_children
+    button: |
+      **How many children do you pay child support for?**:
+      ${ user_pays_child_support_for_number_of_children }
+  - Edit: user_pays_child_support_amount
+    button: |
+      **How much child support do you pay?**:
+      ${ currency(user_pays_child_support_amount) }
+  - Edit: user_pays_child_support
+    button: |
+      **Do you pay child support?**:
+      ${ word(yesno(user_pays_child_support)) }
+  - Edit: child_support_paid_other_schedule_term
+    button: |
+      **What other schedule do you pay your child support on?**:
+      ${ child_support_paid_other_schedule_term }
+  - Edit: child_support_paid_weekly
+    button: |
+      **Child support paid weekly**:
+      ${ word(yesno(child_support_paid_weekly)) }
+  - Edit: child_support_paid_biweekly
+    button: |
+      **Child support paid biweekly**:
+      ${ word(yesno(child_support_paid_biweekly)) }
+  - Edit: child_support_paid_monthly
+    button: |
+      **Child support paid monthly**:
+      ${ word(yesno(child_support_paid_monthly)) }
+  - Edit: child_support_paid_other_schedule
+    button: |
+      **Child support paid on another schedule**:
+      ${ word(yesno(child_support_paid_other_schedule)) }
+  - Edit: user_lives_alone
+    button: |
+      **Do you live alone?**:
+      ${ word(yesno(user_lives_alone)) }
+  - Edit: user_lives_with_someone
+    button: |
+      **Do you live with anyone?**:
+      ${ word(yesno(user_lives_with_someone)) }
+  - Edit: user_lives_with_spouse
+    button: |
+      **Lives with spouse**:
+      ${ word(yesno(user_lives_with_spouse)) }
+  - Edit: user_lives_with_friend
+    button: |
+      **Lives with friend**:
+      ${ word(yesno(user_lives_with_friend)) }
+  - Edit: user_lives_with_parent
+    button: |
+      **Lives with parent(s)**:
+      ${ word(yesno(user_lives_with_parent)) }
+  - Edit: user_lives_with_other
+    button: |
+      **Lives with others**:
+      ${ word(yesno(user_lives_with_other)) }
+  - Edit: user_lives_with_other_text
+    button: |
+      **Who do you live with?**:
+      ${ user_lives_with_other_text }
+  - Edit: shared_living_expenses_amount
+    button: |
+      **How much do others contribute to your shared living expenses?**:
+      ${ currency(shared_living_expenses_amount) }
+  - Edit: user_shares_living_expenses
+    button: |
+      **Do you share living expenses with those you live with?**:
+      ${ word(yesno(user_shares_living_expenses)) }
+  - Edit: shared_living_expenses_other_term
+    button: |
+      **What other schedule do you use for sharing living expenses?**:
+      ${ shared_living_expenses_other_term }
+  - Edit: shared_living_expenses_weekly
+    button: |
+      **They contribute to expenses weekly**:
+      ${ word(yesno(shared_living_expenses_weekly)) }
+  - Edit: shared_living_expenses_biweekly
+    button: |
+      **They contribute to expenses biweekly**:
+      ${ word(yesno(shared_living_expenses_biweekly)) }
+  - Edit: shared_living_expenses_monthly
+    button: |
+      **They contribute to expenses monthly**:
+      ${ word(yesno(shared_living_expenses_monthly)) }
+  - Edit: shared_living_expenses_other
+    button: |
+      **They contribute to expenses on  another schedule**:
+      ${ word(yesno(shared_living_expenses_other)) }
+  - Edit: acknowledge_form_terms
+    button: |
+      **Acknowledge form terms**:
+      ${ word(yesno(acknowledge_form_terms)) }
+  - Edit: truthfulness_check
+    button: |
+      **Truthfulness check - is all this true or else perjury?**:
+      ${ word(yesno(truthfulness_check)) }
+  - Edit: signature_date
+    button: |
+      **Date of signature**:
+      ${ signature_date }
+---
+continue button field: plaintiffs.revisit
+question: |
+  Edit plaintiffs
+subquestion: |
+  ${ plaintiffs.table }
+
+  ${ plaintiffs.add_action() }
+---
+table: plaintiffs.table
+rows: plaintiffs
+columns:
+  - Name: |
+      row_item.name.full() if defined("row_item.name.first") else ""
+edit:
+  - name.first
+confirm: True
+
+---
+continue button field: courts.revisit
+question: |
+  Edit courts
+subquestion: |
+  ${ courts.table }
+
+  ${ courts.add_action() }
+---
+table: courts.table
+rows: courts
+columns:
+  - Address: |
+      row_item.address.block() if defined("row_item.address.county") else ""
+edit:
+  - address.county
+confirm: True
+
+---
+continue button field: defendants.revisit
+question: |
+  Edit defendants
+subquestion: |
+  ${ defendants.table }
+
+  ${ defendants.add_action() }
+---
+table: defendants.table
+rows: defendants
+columns:
+  - Name: |
+      row_item.name.full() if defined("row_item.name.first") else ""
+edit:
+  - name.first
+confirm: True
+
+---
+continue button field: users.revisit
+question: |
+  Edit users
+subquestion: |
+  ${ users.table }
+
+  ${ users.add_action() }
+---
+table: users.table
+rows: users
+columns:
+  - Name: |
+      row_item.name.full() if defined("row_item.name.first") else ""
+  - Address: |
+      row_item.address.block() if defined("row_item.address.address") else ""
+  - Birthdate: |
+      row_item.birthdate if defined("row_item.birthdate") else ""
+  - Phone number: |
+      row_item.phone_number if defined("row_item.phone_number") else ""
+  - Mobile number: |
+      row_item.mobile_number if defined("row_item.mobile_number") else ""
+  - Email: |
+      row_item.email if defined("row_item.email") else ""
+edit:
+  - name.first
+  - address.address
+  - birthdate
+  - phone_number
+  - mobile_number
+  - email
+confirm: True
+
+---
+id: download mainefinancialaffidavit
+event: mainefinancialaffidavit_download
+question: |
+  All done
+subquestion: |
+  Thank you ${users}. Your form is ready to download and deliver.
+  
+  View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
+
+  ${ action_button_html(url_action('review_mainefinancialaffidavit'), label='Edit answers', color='info') }
+  
+  
+  ${ al_user_bundle.download_list_html() }
+  
+
+  ${ al_user_bundle.send_button_html(show_editable_checkbox=False) }
+
+progress: 100
+---
+# ALDocument objects specify the metadata for each template
+objects:
+  - mainefinancialaffidavit_Post_interview_instructions: ALDocument.using(title="Instructions", filename="mainefinancialaffidavit_next_steps.docx", enabled=True, has_addendum=False)
+  - mainefinancialaffidavit_attachment: ALDocument.using(title="Maine Financial Affidavit", filename="mainefinancialaffidavit", enabled=True, has_addendum=False, )
+---
+# Bundles group the ALDocuments into separate downloads, such as for court and for the user
+objects:
+  - al_user_bundle: ALDocumentBundle.using(elements=[mainefinancialaffidavit_Post_interview_instructions, mainefinancialaffidavit_attachment], filename="mainefinancialaffidavit", title="All forms to download for your records", enabled=True)
+  - al_court_bundle: ALDocumentBundle.using(elements=[mainefinancialaffidavit_attachment],  filename="mainefinancialaffidavit", title="All forms to deliver to court", enabled=True)
+---
+# Each attachment defines a key in an ALDocument. We use `i` as the placeholder here so the same template is 
+# used for "preview" and "final" keys, and logic in the template checks the value of 
+# `i` to show or hide the user's signature
+attachment:
+  name: Post-interview-Instructions
+  filename: mainefinancialaffidavit_next_steps
+  docx template file: mainefinancialaffidavit_next_steps.docx
+  variable name: mainefinancialaffidavit_Post_interview_instructions[i]
+  skip undefined: True
+---
+attachment:
+  name: mainefinancialaffidavit
+  filename: mainefinancialaffidavit
+  variable name: mainefinancialaffidavit_attachment[i]
+  skip undefined: True
+  pdf template file: mainefinancialaffidavit.pdf
+  fields:
+      - "plaintiffs_name": ${ plaintiffs[0] }
+      - "plaintiffs1_name": ${ plaintiffs[1] }
+      - "court_county": ${ court_county }
+      - "court_town": ${ court_town }
+      - "court_superior": ${ court_type == "superior" }
+      - "court_district": ${ court_type == "district" }
+      - "court_criminal": ${ court_type == "criminal" }
+      - "docket_number": ${ docket_number }
+      - "defendants_name": ${ defendants[0] }
+      - "defendants1_name": ${ defendants[1] }
+      - "user_name": ${ users[0] }
+      - "support_fee_waiver": ${ support_fee_waiver }
+      #- "support_other_text": ${ support_other_text }
+      #- "support_other": ${ support_fee_waiver == False }
+      - "user_address_on_one_line": ${ users[0].address.on_one_line() }
+      - "users_birthdate": ${ users[0].birthdate.format() }
+      - "user_phone_number": ${ users[0].phone_number }
+      - "user_mobile_number": ${ users[0].mobile_number }
+      - "user_work_number": ${ "{:,.2f}".format(user_work_number) }
+      - "user_email": ${ users[0].email }
+      - "employer_name": ${ employer_name }
+      - "user_is_employed": ${ user_is_employed }
+      - "employer_address_on_one_line": ${ employer_address_on_one_line }
+      - "user_gross_pay": ${ currency(user_gross_pay) }
+      - "user_pay_salary": ${ user_pay_salary }
+      - "user_salary_paid_weekly": ${ pay_period_salary == "user_salary_paid_weekly" }
+      - "user_salary_paid_biweekly": ${ pay_period_salary == "user_salary_paid_biweekly" }
+      - "user_salary_paid_monthly": ${ pay_period_salary == "user_salary_paid_monthly" }
+      - "user_salary_paid_other_term": ${ user_salary_paid_other_term }
+      - "user_salary_paid_other": ${ pay_period_salary == "user_salary_paid_other" }
+      - "user_hourly_wage": ${ user_hourly_wage }
+      - "user_hours_worked": ${ user_hours_worked }
+      - "user_pay_wages": ${ user_pay_wages }
+      - "user_hours_worked_weekly": ${ pay_period_wage == "user_hours_worked_weekly" }
+      - "user_hours_worked_biweekly": ${ pay_period_wage == "user_hours_worked_biweekly" }
+      - "user_hours_worked_monthly": ${ pay_period_wage == "user_hours_worked_monthly" }
+      - "user_hours_worked_other_term": ${ user_hours_worked_other_term }
+      - "user_hours_worked_other": ${ pay_period_wage == "user_hours_worked_other" }
+      - "user_gets_benefits": ${ user_gets_benefits }
+      - "benefits_unemployment": ${ user_benefits_selection["benefits_unemployment"] == True }
+      - "benefits_social_security": ${ user_benefits_selection["benefits_social_security"] == True }
+      - "benefits_tanf": ${ user_benefits_selection["benefits_tanf"] == True }
+      - "benefits_spousal_child_support": ${ user_benefits_selection["benefits_spousal_child_support"] == True }
+      - "benefits_other": ${ user_benefits_selection["benefits_other"] == True }
+      - "benefits_other_text": ${ benefits_other_text }
+      - "benefits_total_value": ${ currency(benefits_total_value) }
+      - "benefits_time_weekly": ${ user_benefits_schedule == "benefits_time_weekly" }
+      - "benefits_time_biweekly": ${ user_benefits_schedule == "benefits_time_biweekly" }
+      - "benefits_time_monthly": ${ user_benefits_schedule == "benefits_time_monthly" }
+      - "benefits_time_other": ${ user_benefits_schedule == "benefits_time_other" }
+      - "benefits_time_other_term": ${ benefits_time_other_term }
+      - "asset_cash_bail": ${ asset_cash_bail }
+      - "asset_cash_bail_amount": ${ currency(asset_cash_bail_amount) }
+      - "asset_cash_on_hand_amount": ${ currency(asset_cash_on_hand_amount) }
+      - "asset_cash_in_bank_amount": ${ currency(asset_cash_in_bank_amount) }
+      - "asset_owed_money_amount": ${ currency(asset_owed_money_amount) }
+      - "asset_cash_on_hand": ${ asset_cash_on_hand }
+      - "asset_cash_in_bank": ${ asset_cash_in_bank }
+      - "asset_owed_money": ${ asset_owed_money }
+      - "asset_user_owns_house": ${ asset_user_owns_house }
+      - "asset_user_owns_house_value": ${ currency(asset_user_owns_house_value) }
+      - "asset_user_owns_house_amount_owed": ${ currency(asset_user_owns_house_amount_owed) }
+      - "asset_user_owns_vehicle_value": ${ currency(asset_user_owns_vehicle_value) }
+      - "asset_user_owns_stocks_value": ${ currency(asset_user_owns_stocks_value) }
+      - "asset_user_owns_vehicle": ${ asset_user_owns_vehicle }
+      - "asset_user_owns_stocks": ${ asset_user_owns_stocks }
+      - "asset_user_owns_recreational_vehicle": ${ asset_user_owns_recreational_vehicle }
+      - "asset_user_owns_recreational_vehicle_value": ${ currency(asset_user_owns_recreational_vehicle_value) }
+      - "asset_user_owns_other_text": ${ asset_user_owns_other_text }
+      - "asset_user_owns_other_value": ${ currency(asset_user_owns_other_value) }
+      - "asset_user_owns_other": ${ asset_user_owns_other }
+      - "expense_mortgage": ${ expense_mortgage }
+      - "expense_child_support": ${ expense_child_support }
+      - "expense_utilities": ${ expense_utilities }
+      - "expense_mortgage_amount": ${ currency(expense_mortgage_amount) }
+      - "expense_child_support_amount": ${ currency(expense_child_support_amount) }
+      - "expense_utilities_amount": ${ currency(expense_utilities_amount) }
+      - "expense_food": ${ expense_food }
+      - "expense_cable": ${ expense_cable }
+      - "expense_credit_card": ${ expense_credit_card }
+      - "expense_food_amount": ${ currency(expense_food_amount) }
+      - "expense_cable_amount": ${ currency(expense_cable_amount) }
+      - "expense_credit_card_amount": ${ currency(expense_credit_card_amount) }
+      - "expense_loans": ${ expense_loans }
+      - "expense_heat": ${ expense_heat }
+      - "expense_rent": ${ expense_rent }
+      - "expense_loans_amount": ${ currency(expense_loans_amount) }
+      - "expense_heat_amount": ${ currency(expense_heat_amount) }
+      - "expense_rent_amount": ${ currency(expense_rent_amount) }
+      - "expense_cell_phone": ${ expense_cell_phone }
+      - "expense_other": ${ expense_other }
+      - "expense_cell_phone_amount": ${ currency(expense_cell_phone_amount) }
+      - "expense_other_text": ${ expense_other_text }
+      - "expense_other_amount": ${ currency(expense_other_amount) }
+      - "number_children_live_with_user": ${ number_children_live_with_user }
+      - "children_live_with_user": ${ children_live_with_user }
+      - "user_pays_child_support_for_number_of_children": ${ user_pays_child_support_for_number_of_children }
+      - "user_pays_child_support_amount": ${ currency(user_pays_child_support_amount) }
+      - "user_pays_child_support": ${ expense_child_support }
+      - "child_support_paid_other_schedule_term": ${ child_support_paid_other_schedule_term }
+      - "child_support_paid_weekly": ${ child_support_schedule == "child_support_paid_weekly" }
+      - "child_support_paid_biweekly": ${ child_support_schedule == "child_support_paid_biweekly" }
+      - "child_support_paid_monthly": ${ child_support_schedule == "child_support_paid_monthly" }
+      - "child_support_paid_other_schedule": ${ child_support_schedule == "child_support_paid_other_schedule" }
+      - "user_lives_alone": ${ user_lives_alone }
+      - "user_lives_with_someone": ${ user_household_children_plus_adults == True }
+      - "user_lives_with_spouse": ${ user_housemate_selection["user_lives_with_spouse"] == True }
+      - "user_lives_with_friend": ${ user_housemate_selection["user_lives_with_friend"] == True }
+      - "user_lives_with_parent": ${ user_housemate_selection["user_lives_with_parent"] == True }
+      - "user_lives_with_other": ${ user_housemate_selection["user_lives_with_other"] }
+      - "user_lives_with_other_text": ${ user_lives_with_other_text }
+      - "shared_living_expenses_amount": ${ currency(shared_living_expenses_amount) }
+      - "user_shares_living_expenses": ${ user_shares_living_expenses }
+      - "shared_living_expenses_other_term": ${ shared_living_expenses_other_term }
+      - "shared_living_expenses_weekly": ${ shared_living_expenses_schedule == "shared_living_expenses_weekly" }
+      - "shared_living_expenses_biweekly": ${ shared_living_expenses_schedule == "shared_living_expenses_biweekly" }
+      - "shared_living_expenses_monthly": ${ shared_living_expenses_schedule == "shared_living_expenses_monthly" }
+      - "shared_living_expenses_other": ${ shared_living_expenses_schedule == "shared_living_expenses_other" }
+      - "acknowledge_form_terms": ${ acknowledge_form_terms }
+      - "truthfulness_check": ${ truthfulness_check }
+      - "signature_date": ${ signature_date }
+
+
