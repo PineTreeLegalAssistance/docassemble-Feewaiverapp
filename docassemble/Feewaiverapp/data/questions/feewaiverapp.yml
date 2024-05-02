@@ -76,9 +76,8 @@ sections:
   - review_feewaiverapp: Review your answers
 ---
 template: PTLA_terms_of_use
-subject: Terms of Use and Privacy Policy
 content: |
-  # Pine Tree Legal Assistance's Terms of Use and Privacy Policy
+  ## Pine Tree Legal Assistance's Terms of Use and Privacy Policy
 
   This website is free to use.
   Pine Tree Legal Assistance hosts this site.
