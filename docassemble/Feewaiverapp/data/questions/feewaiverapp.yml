@@ -8,6 +8,9 @@ objects:
   - users: ALPeopleList.using(there_are_any=True)
   - court_list: ALCourtLoader.using(file_name='ptlacourtaddresstest.xlsx')
 ---
+modules:
+  - docassemble.GithubFeedbackForm.github_issue
+---
 code: |
   court_data = court_list._load_courts() 
 ---
