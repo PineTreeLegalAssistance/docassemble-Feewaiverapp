@@ -4,6 +4,12 @@ include:
   - custom_ptla_theme_ngb.yml
   - mainefinancialaffidavit.yml
 ---
+default screen parts:
+  footer: |
+    [:share-alt-square: Share](${ url_ask([{'undefine': ['al_sharing_type','al_how_share_link']}, 'al_share_form_screen', {'recompute': ['al_did_share_form']}, 'al_share_results']) })
+    [:info-circle: About](${ url_action('about_this_interview') })
+    [:comment-dots: Feedback](https://forms.office.com/Pages/ResponsePage.aspx?id=gOsuS1HkzESOjJ_IxTUKuMd_2zPCiBNIvwzVGRoYK5FUNDVPQVFVODVCSFBWNVZWMzJFNVRZQzRDMC4u){:target="_blank"}
+---
 objects:
   - users: ALPeopleList.using(there_are_any=True)
   - court_list: ALCourtLoader.using(file_name='ptlacourtaddresstest.xlsx')
