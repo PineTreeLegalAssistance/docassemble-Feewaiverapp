@@ -129,8 +129,8 @@ code: |
   user_lives_alone
   if user_lives_alone == False and user_household_children_plus_adults == True:
     user_shares_living_expenses
-  mainefinancialaffidavit_preview_question
-  acknowledge_form_terms
+  #mainefinancialaffidavit_preview_question
+  #acknowledge_form_terms
   set_progress(64)
   signature_date
   interview_order_mainefinancialaffidavit = True
