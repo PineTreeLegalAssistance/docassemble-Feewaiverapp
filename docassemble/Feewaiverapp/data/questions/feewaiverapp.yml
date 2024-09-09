@@ -903,7 +903,7 @@ review:
   - Edit: shared_living_expenses_amount
     button: |
       **How much do others contribute to your shared living expenses?**:
-      ${ currency(shared_living_expenses_amount) }
+      ${ (shared_living_expenses_amount) }
   - Edit: user_shares_living_expenses
     button: |
       **Do you share living expenses with those you live with?**:
@@ -1147,7 +1147,7 @@ attachment:
       - "employer_name": ${ employer_name }
       - "user_is_employed": ${ user_is_employed }
       - "employer_address_on_one_line": ${ employer_address_on_one_line }
-      - "user_gross_pay": ${ currency(user_gross_pay) }
+      - "user_gross_pay": ${ (user_gross_pay) }
       - "user_pay_salary": ${ user_pay_salary }
       - "user_salary_paid_weekly": ${ pay_period_salary == "user_salary_paid_weekly" }
       - "user_salary_paid_biweekly": ${ pay_period_salary == "user_salary_paid_biweekly" }
@@ -1169,59 +1169,59 @@ attachment:
       - "benefits_spousal_child_support": ${ user_benefits_selection["benefits_spousal_child_support"] == True }
       - "benefits_other": ${ user_benefits_selection["benefits_other"] == True }
       - "benefits_other_text": ${ benefits_other_text }
-      - "benefits_total_value": ${ currency(benefits_total_value) }
+      - "benefits_total_value": ${ (benefits_total_value) }
       - "benefits_time_weekly": ${ user_benefits_schedule == "benefits_time_weekly" }
       - "benefits_time_biweekly": ${ user_benefits_schedule == "benefits_time_biweekly" }
       - "benefits_time_monthly": ${ user_benefits_schedule == "benefits_time_monthly" }
       - "benefits_time_other": ${ user_benefits_schedule == "benefits_time_other" }
       - "benefits_time_other_term": ${ benefits_time_other_term }
       - "asset_cash_bail": ${ asset_cash_bail }
-      - "asset_cash_bail_amount": ${ currency(asset_cash_bail_amount) }
-      - "asset_cash_on_hand_amount": ${ currency(asset_cash_on_hand_amount) }
-      - "asset_cash_in_bank_amount": ${ currency(asset_cash_in_bank_amount) }
-      - "asset_owed_money_amount": ${ currency(asset_owed_money_amount) }
+      - "asset_cash_bail_amount": ${ (asset_cash_bail_amount) }
+      - "asset_cash_on_hand_amount": ${ (asset_cash_on_hand_amount) }
+      - "asset_cash_in_bank_amount": ${ (asset_cash_in_bank_amount) }
+      - "asset_owed_money_amount": ${ (asset_owed_money_amount) }
       - "asset_cash_on_hand": ${ asset_cash_on_hand }
       - "asset_cash_in_bank": ${ asset_cash_in_bank }
       - "asset_owed_money": ${ asset_owed_money }
       - "asset_user_owns_house": ${ asset_user_owns_house }
-      - "asset_user_owns_house_value": ${ currency(asset_user_owns_house_value) }
-      - "asset_user_owns_house_amount_owed": ${ currency(asset_user_owns_house_amount_owed) }
-      - "asset_user_owns_vehicle_value": ${ currency(asset_user_owns_vehicle_value) }
-      - "asset_user_owns_stocks_value": ${ currency(asset_user_owns_stocks_value) }
+      - "asset_user_owns_house_value": ${ (asset_user_owns_house_value) }
+      - "asset_user_owns_house_amount_owed": ${ (asset_user_owns_house_amount_owed) }
+      - "asset_user_owns_vehicle_value": ${ (asset_user_owns_vehicle_value) }
+      - "asset_user_owns_stocks_value": ${ (asset_user_owns_stocks_value) }
       - "asset_user_owns_vehicle": ${ asset_user_owns_vehicle }
       - "asset_user_owns_stocks": ${ asset_user_owns_stocks }
       - "asset_user_owns_recreational_vehicle": ${ asset_user_owns_recreational_vehicle }
-      - "asset_user_owns_recreational_vehicle_value": ${ currency(asset_user_owns_recreational_vehicle_value) }
+      - "asset_user_owns_recreational_vehicle_value": ${ (asset_user_owns_recreational_vehicle_value) }
       - "asset_user_owns_other_text": ${ asset_user_owns_other_text }
-      - "asset_user_owns_other_value": ${ currency(asset_user_owns_other_value) }
+      - "asset_user_owns_other_value": ${ (asset_user_owns_other_value) }
       - "asset_user_owns_other": ${ asset_user_owns_other }
       - "expense_mortgage": ${ expense_mortgage }
       - "expense_child_support": ${ expense_child_support }
       - "expense_utilities": ${ expense_utilities }
-      - "expense_mortgage_amount": ${ currency(expense_mortgage_amount) }
-      - "expense_child_support_amount": ${ currency(expense_child_support_amount) }
-      - "expense_utilities_amount": ${ currency(expense_utilities_amount) }
+      - "expense_mortgage_amount": ${ (expense_mortgage_amount) }
+      - "expense_child_support_amount": ${ (expense_child_support_amount) }
+      - "expense_utilities_amount": ${ (expense_utilities_amount) }
       - "expense_food": ${ expense_food }
       - "expense_cable": ${ expense_cable }
       - "expense_credit_card": ${ expense_credit_card }
-      - "expense_food_amount": ${ currency(expense_food_amount) }
-      - "expense_cable_amount": ${ currency(expense_cable_amount) }
-      - "expense_credit_card_amount": ${ currency(expense_credit_card_amount) }
+      - "expense_food_amount": ${ (expense_food_amount) }
+      - "expense_cable_amount": ${ (expense_cable_amount) }
+      - "expense_credit_card_amount": ${ (expense_credit_card_amount) }
       - "expense_loans": ${ expense_loans }
       - "expense_heat": ${ expense_heat }
       - "expense_rent": ${ expense_rent }
-      - "expense_loans_amount": ${ currency(expense_loans_amount) }
-      - "expense_heat_amount": ${ currency(expense_heat_amount) }
-      - "expense_rent_amount": ${ currency(expense_rent_amount) }
+      - "expense_loans_amount": ${ (expense_loans_amount) }
+      - "expense_heat_amount": ${ (expense_heat_amount) }
+      - "expense_rent_amount": ${ (expense_rent_amount) }
       - "expense_cell_phone": ${ expense_cell_phone }
       - "expense_other": ${ expense_other }
-      - "expense_cell_phone_amount": ${ currency(expense_cell_phone_amount) }
+      - "expense_cell_phone_amount": ${ (expense_cell_phone_amount) }
       - "expense_other_text": ${ expense_other_text }
-      - "expense_other_amount": ${ currency(expense_other_amount) }
+      - "expense_other_amount": ${ (expense_other_amount) }
       - "number_children_live_with_user": ${ number_children_live_with_user }
       - "children_live_with_user": ${ children_live_with_user }
       - "user_pays_child_support_for_number_of_children": ${ user_pays_child_support_for_number_of_children }
-      - "user_pays_child_support_amount": ${ currency(user_pays_child_support_amount) }
+      - "user_pays_child_support_amount": ${ (user_pays_child_support_amount) }
       - "user_pays_child_support": ${ expense_child_support }
       - "child_support_paid_other_schedule_term": ${ child_support_paid_other_schedule_term }
       - "child_support_paid_weekly": ${ child_support_schedule == "child_support_paid_weekly" }
@@ -1235,7 +1235,7 @@ attachment:
       - "user_lives_with_parent": ${ user_housemate_selection["user_lives_with_parent"] == True }
       - "user_lives_with_other": ${ user_housemate_selection["user_lives_with_other"] }
       - "user_lives_with_other_text": ${ user_lives_with_other_text }
-      - "shared_living_expenses_amount": ${ currency(shared_living_expenses_amount) }
+      - "shared_living_expenses_amount": ${ (shared_living_expenses_amount) }
       - "user_shares_living_expenses": ${ user_shares_living_expenses }
       - "shared_living_expenses_other_term": ${ shared_living_expenses_other_term }
       - "shared_living_expenses_weekly": ${ shared_living_expenses_schedule == "shared_living_expenses_weekly" }

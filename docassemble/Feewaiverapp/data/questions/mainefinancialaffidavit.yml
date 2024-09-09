@@ -226,10 +226,11 @@ fields:
 validation code: |
   if not phone_number_is_valid(users[0].phone_number):
     validation_error("Please enter a phone number in the format (xxx) xxx-xxxx", field="users[0].phone_number")
-  users[0].phone_number = phone_number_formatted(users[0].phone_number)
-  if not phone_number_is_valid(users[0].mobile_number):
-    validation_error("Please enter a phone number in the format (xxx) xxx-xxxx", field="users[0].mobile_number")
-  users[0].mobile_number = phone_number_formatted(users[0].mobile_number)
+  users[0].phone_number = phone_number_formatted(users[0].phone_number)  
+  if users[0].mobile_number: 
+    if not phone_number_is_valid(users[0].mobile_number):
+      validation_error("Please enter a phone number in the format (xxx) xxx-xxxx",     field="users[0].mobile_number")
+    users[0].mobile_number = phone_number_formatted(users[0].mobile_number)
 ---
 id: Employment Status
 question: |
@@ -260,9 +261,11 @@ fields:
     datatype: yesnoradio
   - "What is your hourly wage?": user_hourly_wage
     datatype: currency
+    currency symbol: ''
     show if: user_pay_wages
   - "What is your gross pay each pay period?": user_gross_pay
-    datatype: currency 
+    datatype: currency
+    currency symbol: ''
     hide if:  user_pay_wages
 ---
 id: Salary Pay Period
@@ -335,6 +338,7 @@ question: |
 fields:
   - What is the total dollar amount of all the benefits you get?: benefits_total_value
     datatype: currency
+    currency symbol: ''
     min: 0
   - How often do you get these benefits?: user_benefits_schedule
     input type: radio
@@ -360,18 +364,21 @@ fields:
   - "How much cash on hand?": asset_cash_on_hand_amount
     show if: asset_cash_on_hand
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you have any money in the bank?": asset_cash_in_bank
     datatype: yesnoradio
   - "How much money in the bank?": asset_cash_in_bank_amount
     show if: asset_cash_in_bank
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Does anyone owe you money?": asset_owed_money
     datatype: yesnoradio
   - "How much money are you owed?": asset_owed_money_amount
     show if: asset_owed_money
     datatype: currency
+    currency symbol: ''
     min: 0
 ---
 id: cash bail
@@ -383,6 +390,7 @@ fields:
   - "How much cash bail did you pay?": asset_cash_bail_amount
     show if: asset_cash_bail
     datatype: currency
+    currency symbol: ''
     min: 0
 ### Note to Jack - need to work out how to ask this question since not intending for this fin. aff. to be used separately at this time. Form mentions that it must be '1st party' bail.
 #  - "Cash Bail you have paid in this case": asset_cash_bail
@@ -407,28 +415,33 @@ fields:
   - "What is the value of the house you own?": asset_user_owns_house_value
     show if: asset_user_owns_house
     datatype: currency
+    currency symbol: ''
     min: 0
   - "How much do you still owe on the house?": asset_user_owns_house_amount_owed
     show if: asset_user_owns_house
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you own a vehicle?": asset_user_owns_vehicle
     datatype: yesnoradio
   - "How much is the vehicle worth?": asset_user_owns_vehicle_value
     show if: asset_user_owns_vehicle
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you own any recreational vehicles (like boats or ATVs)?": asset_user_owns_recreational_vehicle
     datatype: yesnoradio
   - "How much are any recreational vehicles you own worth?": asset_user_owns_recreational_vehicle_value
     show if: asset_user_owns_recreational_vehicle
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you own stocks?": asset_user_owns_stocks
     datatype: yesnoradio
   - "How much are your stocks worth?": asset_user_owns_stocks_value
     show if: asset_user_owns_stocks
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you have any other valuables worth $250 or more?": asset_user_owns_other
     datatype: yesnoradio
@@ -438,6 +451,7 @@ fields:
   - "How much are those other valuables worth?": asset_user_owns_other_value
     show if: asset_user_owns_other
     datatype: currency
+    currency symbol: ''
     min: 0
 ---
 id: Expenses - Housing
@@ -451,24 +465,28 @@ fields:
   - "Monthly mortgage amount": expense_mortgage_amount
     show if: expense_mortgage
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you pay rent?": expense_rent
     datatype: yesnoradio
   - "Monthly rent amount": expense_rent_amount
     show if: expense_rent
     datatype: currency
+    currency symbol: ''
     min: 0     
   - "Do you pay utilities?": expense_utilities
     datatype: yesnoradio
   - "Monthly utilities amount": expense_utilities_amount
     show if: expense_utilities
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you pay heating costs?": expense_heat
     datatype: yesnoradio
   - "Monthly heating costs": expense_heat_amount
     show if: expense_heat
     datatype: currency
+    currency symbol: ''
     min: 0
     note: |
       If your heating costs change month-to-month take an average and use that amount.
@@ -483,12 +501,14 @@ fields:
   - "Monthly food costs": expense_food_amount
     show if: expense_food
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you have cell phone costs?": expense_cell_phone
     datatype: yesnoradio
   - "Monthly cell phone costs": expense_cell_phone_amount
     show if: expense_cell_phone
     datatype: currency
+    currency symbol: ''
     min: 0  
   - "Do you have cable costs?": expense_cable
     datatype: yesnoradio
@@ -496,6 +516,7 @@ fields:
   - "Monthly cable costs": expense_cable_amount
     show if: expense_cable
     datatype: currency
+    currency symbol: ''
     min: 0    
 ---
 id: Expenses - Child Support
@@ -507,6 +528,7 @@ fields:
   - "Monthly child support amount": expense_child_support_amount
     show if: expense_child_support
     datatype: currency
+    currency symbol: ''
     min: 0
     help: |  
       Please enter the total amount of child support you pay each month, for all children combined. We will ask for more details later in this interview.
@@ -521,12 +543,14 @@ fields:
   - "Monthly credit card payment(s) amount": expense_credit_card_amount
     show if: expense_credit_card
     datatype: currency
+    currency symbol: ''
     min: 0
   - "Do you have monthly loan payments?": expense_loans
     datatype: yesnoradio
   - "Monthly loan payment(s) amount": expense_loans_amount
     show if: expense_loans
     datatype: currency
+    currency symbol: ''
     min: 0    
   - "Do you have other monthly expenses?": expense_other
     datatype: yesnoradio
@@ -536,6 +560,7 @@ fields:
   - "What is the monthly amount of any other expenses you have?": expense_other_amount
     show if: expense_other
     datatype: currency
+    currency symbol: ''
     min: 0
 ---
 id: Living Situation Children
@@ -589,6 +614,7 @@ fields:
     datatype: yesnoradio
   - "How much do others contribute to your shared living expenses?": shared_living_expenses_amount
     datatype: currency
+    currency symbol: ''
     min: 0
     show if: user_shares_living_expenses
   - "How often do they contribute this amount?": shared_living_expenses_schedule
@@ -618,6 +644,7 @@ fields:
     min: 0
   - "How much child support do you pay in total?": user_pays_child_support_amount
     datatype: currency
+    currency symbol: ''
     min: 0
   - "How often do you pay this amount in child support?": child_support_schedule
     input type: radio
