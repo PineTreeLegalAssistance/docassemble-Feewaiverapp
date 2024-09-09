@@ -551,7 +551,7 @@ review:
   - Edit: user_gross_pay
     button: |
       **What is your gross pay?**:
-      ${ currency(user_gross_pay) }
+      ${ (user_gross_pay) }
   - Edit: user_pay_salary
     button: |
       **Are you paid a salary?**:
@@ -639,7 +639,7 @@ review:
   - Edit: benefits_total_value
     button: |
       **Benefits total value**:
-      ${ currency(benefits_total_value) }
+      ${ (benefits_total_value) }
   - Edit: benefits_time_weekly
     button: |
       **I get this amount in benefits weekly**:
@@ -667,19 +667,19 @@ review:
   - Edit: asset_cash_bail_amount
     button: |
       **Amount of cash bail you paid in this case**:
-      ${ currency(asset_cash_bail_amount) }
+      ${ (asset_cash_bail_amount) }
   - Edit: asset_cash_on_hand_amount
     button: |
       **How much cash on hand?**:
-      ${ currency(asset_cash_on_hand_amount) }
+      ${ (asset_cash_on_hand_amount) }
   - Edit: asset_cash_in_bank_amount
     button: |
       **How much money in the bank?**:
-      ${ currency(asset_cash_in_bank_amount) }
+      ${ (asset_cash_in_bank_amount) }
   - Edit: asset_owed_money_amount
     button: |
       **How much money are you owed?**:
-      ${ currency(asset_owed_money_amount) }
+      ${ (asset_owed_money_amount) }
   - Edit: asset_cash_on_hand
     button: |
       **Do you have any cash on hand?**:
@@ -699,19 +699,19 @@ review:
   - Edit: asset_user_owns_house_value
     button: |
       **What is the value of the house you own?**:
-      ${ currency(asset_user_owns_house_value) }
+      ${ (asset_user_owns_house_value) }
   - Edit: asset_user_owns_house_amount_owed
     button: |
       **How much do you still owe on the house?**:
-      ${ currency(asset_user_owns_house_amount_owed) }
+      ${ (asset_user_owns_house_amount_owed) }
   - Edit: asset_user_owns_vehicle_value
     button: |
       **How much is the vehicle worth?**:
-      ${ currency(asset_user_owns_vehicle_value) }
+      ${ (asset_user_owns_vehicle_value) }
   - Edit: asset_user_owns_stocks_value
     button: |
       **How much are your stocks worth?**:
-      ${ currency(asset_user_owns_stocks_value) }
+      ${ (asset_user_owns_stocks_value) }
   - Edit: asset_user_owns_vehicle
     button: |
       **Do you own a vehicle?**:
@@ -727,7 +727,7 @@ review:
   - Edit: asset_user_owns_recreational_vehicle_value
     button: |
       **How much are any recreational vehicles you own worth?**:
-      ${ currency(asset_user_owns_recreational_vehicle_value) }
+      ${ (asset_user_owns_recreational_vehicle_value) }
   - Edit: asset_user_owns_other_text
     button: |
       **What other valuables do you have?**:
@@ -735,7 +735,7 @@ review:
   - Edit: asset_user_owns_other_value
     button: |
       **How much are those other valuables worth?**:
-      ${ currency(asset_user_owns_other_value) }
+      ${ (asset_user_owns_other_value) }
   - Edit: asset_user_owns_other
     button: |
       **Do you have any other valuables worth $250 or more?**:
@@ -755,15 +755,15 @@ review:
   - Edit: expense_mortgage_amount
     button: |
       **Monthly mortgage amount**:
-      ${ currency(expense_mortgage_amount) }
+      ${ (expense_mortgage_amount) }
   - Edit: expense_child_support_amount
     button: |
       **Monthly child support amount**:
-      ${ currency(expense_child_support_amount) }
+      ${ (expense_child_support_amount) }
   - Edit: expense_utilities_amount
     button: |
       **Monthly utilities amount**:
-      ${ currency(expense_utilities_amount) }
+      ${ (expense_utilities_amount) }
   - Edit: expense_food
     button: |
       **Food costs?**:
@@ -779,15 +779,15 @@ review:
   - Edit: expense_food_amount
     button: |
       **Monthly food costs**:
-      ${ currency(expense_food_amount) }
+      ${ (expense_food_amount) }
   - Edit: expense_cable_amount
     button: |
       **Monthly cable costs**:
-      ${ currency(expense_cable_amount) }
+      ${ (expense_cable_amount) }
   - Edit: expense_credit_card_amount
     button: |
       **Monthly credit card payments**:
-      ${ currency(expense_credit_card_amount) }
+      ${ (expense_credit_card_amount) }
   - Edit: expense_loans
     button: |
       **Loan payments?**:
@@ -803,15 +803,15 @@ review:
   - Edit: expense_loans_amount
     button: |
       **Monthly loan payments**:
-      ${ currency(expense_loans_amount) }
+      ${ (expense_loans_amount) }
   - Edit: expense_heat_amount
     button: |
       **Monthly heating costs**:
-      ${ currency(expense_heat_amount) }
+      ${ (expense_heat_amount) }
   - Edit: expense_rent_amount
     button: |
       **Monthly rent amount**:
-      ${ currency(expense_rent_amount) }
+      ${ (expense_rent_amount) }
   - Edit: expense_cell_phone
     button: |
       **Cell phone costs?**:
@@ -823,7 +823,7 @@ review:
   - Edit: expense_cell_phone_amount
     button: |
       **Monthly cell phone costs**:
-      ${ currency(expense_cell_phone_amount) }
+      ${ (expense_cell_phone_amount) }
   - Edit: expense_other_text
     button: |
       **What other expenses do you have?**:
@@ -831,7 +831,7 @@ review:
   - Edit: expense_other_amount
     button: |
       **What is the monthly amount of any other expenses you have?**:
-      ${ currency(expense_other_amount) }
+      ${ (expense_other_amount) }
   - Edit: number_children_live_with_user
     button: |
       **How many children live with you?**:
@@ -847,7 +847,7 @@ review:
   - Edit: user_pays_child_support_amount
     button: |
       **How much child support do you pay?**:
-      ${ currency(user_pays_child_support_amount) }
+      ${ (user_pays_child_support_amount) }
   - Edit: user_pays_child_support
     button: |
       **Do you pay child support?**:
