@@ -214,25 +214,15 @@ id: basic questions intro screen
 question: |
   ${interview_short_title}: Pine Tree Legal Forms Project
 subquestion: |
-  % if form_approved_for_email_filing:
-   <br /> This website can help you complete and file court forms in 3 steps:
-  % else:
-  This website can help you complete and download forms in 3 steps:
-  % endif
+
+  This tool can help you complete and download forms in 3 steps:
   
   Step 1. Answer questions that will fill in your form for you.   
   Step 2. Preview the completed form.   
-  % if form_approved_for_email_filing:  
-  Step 3. Email the form to the court using this secure website and save copies for yourself for later reference.   
-  % elif al_form_type in ['starts_case','existing_case','appeal']:
-  Step 3. Download and print the final form. You will need to deliver it
-  to the court on your own. 
-  % else:
-  Step 3. Download and print the final form. You will need to sign the Financial Affidavit and have it notarized, and deliver it 
-  on your own. 
-  % endif
+  Step 3. Download and print your final forms to file with the court. You will need to review the Financial Affidavit, have it notarized, and deliver your forms to the court on your own. 
+
   
-  This site is not a lawyer. If you need legal help and your legal issue is in Maine, you can [contact Pine Tree Legal Assistance](https://ptla.org/contact-us) If you or your legal problem are outside of the state of Maine, find [your local
+  If you need legal help and your legal issue is in Maine, you can [contact Pine Tree Legal Assistance](https://ptla.org/contact-us) If you or your legal problem are outside of the state of Maine, find [your local
   legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
 
   ${ display_template(PTLA_terms_of_use, scrollable=True, collapse=False) }
@@ -1089,10 +1079,10 @@ attachment:
       - "no_service_by_mail": ${ no_service_by_mail }
       - "no_service_by_mail_reason": ${ no_service_by_mail_reason }
       - "user_signature": ${ user_signature }
-      - "signature_date": ${ signature_date }
+      - "signature_date": ${ format_date((signature_date), format='MM/dd/yyyy') }
       - "user_address_line_one": ${ users[0].address.line_one() }
       - "user_address_line_two": ${ users[0].address.line_two() }
-      - "user_phone_number": ${ users[0].mobile_number }
+      - "user_phone_number": ${ users[0].phone_number }
       - "user_email": ${ users[0].email }
 ---
 # ALDocument objects specify the metadata for each template
@@ -1139,7 +1129,7 @@ attachment:
       #- "support_other_text": ${ support_other_text }
       #- "support_other": ${ support_fee_waiver }
       - "user_address_on_one_line": ${ users[0].address.on_one_line() }
-      - "users_birthdate": ${ users[0].birthdate.format() }
+      - "users_birthdate": ${ users[0].birthdate.format('MM/dd/yyyy') }
       - "user_phone_number": ${ users[0].phone_number }
       - "user_mobile_number": ${ users[0].mobile_number }
       - "user_work_number": ${ user_work_number }
@@ -1244,6 +1234,6 @@ attachment:
       - "shared_living_expenses_other": ${ shared_living_expenses_schedule == "shared_living_expenses_other" }
       - "acknowledge_form_terms": ${ acknowledge_form_terms }
       - "truthfulness_check": ${ truthfulness_check }
-      - "signature_date": ${ signature_date }
+      - "signature_date": ${ format_date((signature_date), format='MM/dd/yyyy') }
 ---
 

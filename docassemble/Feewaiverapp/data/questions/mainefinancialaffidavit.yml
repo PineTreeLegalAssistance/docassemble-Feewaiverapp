@@ -306,9 +306,9 @@ fields:
 ---
 id: Benefits
 question: |
-  Benefits
+  Benefits, Child & Spousal Support
 fields:
-  - "Do you get any benefits?": user_gets_benefits
+  - "Do you get any public benefits, or have child or spousal support paid to you?": user_gets_benefits
     datatype: yesnoradio
 under: |
   By 'benefits' we mean public benefits like TANF as well as Social Security, Unemployment, and spousal or child support.
@@ -317,7 +317,7 @@ id: Benefits Detail
 question: |
   Information about your benefits
 fields:
-  - Which benefits do you get?: user_benefits_selection
+  - Which benefits or payments do you get?: user_benefits_selection
     datatype: checkboxes
     none of the above: False 
     choices:
@@ -325,7 +325,7 @@ fields:
       - Social Security: benefits_social_security
       - TANF: benefits_tanf
       - Spousal and/or Child Support: benefits_spousal_child_support
-      - Other: benefits_other
+      - Other (like General Assistance): benefits_other
   - Other Benefits (please list all): benefits_other_text
     show if: 
       variable: user_benefits_selection["benefits_other"]
@@ -334,20 +334,20 @@ fields:
 ---
 id: Benefits Amounts
 question: |
-   More details about your benefits
+   More details about your benefits and payments you get
 fields:
-  - What is the total dollar amount of all the benefits you get?: benefits_total_value
+  - What is the total dollar amount of all the benefits and payments you get?: benefits_total_value
     datatype: currency
     currency symbol: ''
     min: 0
-  - How often do you get these benefits?: user_benefits_schedule
+  - How often do you get these benefits and payments?: user_benefits_schedule
     input type: radio
     choices:
-      - I get this amount in benefits weekly: benefits_time_weekly
-      - I get this amount in benefits biweekly (every two weeks): benefits_time_biweekly
-      - I get this amount in benefits monthly: benefits_time_monthly
-      - I get this amount in benefits on another schedule: benefits_time_other
-  - How often do you get these benefits?: benefits_time_other_term
+      - I get this amount weekly: benefits_time_weekly
+      - I get this amount biweekly (every two weeks): benefits_time_biweekly
+      - I get this amount monthly: benefits_time_monthly
+      - I get this amount on another schedule: benefits_time_other
+  - How often do you get these benefits and payments?: benefits_time_other_term
     show if: 
       variable: user_benefits_schedule
       is: benefits_time_other
