@@ -1057,7 +1057,7 @@ objects:
 attachment:
   name: Post-interview-Instructions
   filename: feewaiverapp_next_steps
-  docx template file: feewaiverapp_next_steps.docx
+  docx template file: feewaiverpacket_next_steps.docx
   variable name: feewaiverapp_Post_interview_instructions[i]
   skip undefined: True
 ---
@@ -1113,7 +1113,7 @@ objects:
 attachment:
   name: Post-interview-Instructions
   filename: mainefinancialaffidavit_next_steps
-  docx template file: mainefinancialaffidavit_next_steps.docx
+  docx template file: feewaiverpacket_next_steps.docx
   variable name: mainefinancialaffidavit_Post_interview_instructions[i]
   skip undefined: True
 ---
