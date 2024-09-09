@@ -217,17 +217,19 @@ code: support_fee_waiver = True
 id: Contact info
 question: |
   How can the court contact you?
-subquestion: |
-
 fields:
   - Phone number: users[0].phone_number
   - Mobile phone number (if different): users[0].mobile_number
     required: False
   - Email: users[0].email
+    required: False
 validation code: |
   if not phone_number_is_valid(users[0].phone_number):
     validation_error("Please enter a phone number in the format (xxx) xxx-xxxx", field="users[0].phone_number")
   users[0].phone_number = phone_number_formatted(users[0].phone_number)
+  if not phone_number_is_valid(users[0].mobile_number):
+    validation_error("Please enter a phone number in the format (xxx) xxx-xxxx", field="users[0].mobile_number")
+  users[0].mobile_number = phone_number_formatted(users[0].mobile_number)
 ---
 id: Employment Status
 question: |
@@ -244,7 +246,11 @@ fields:
   - "Employer address": employer_address_on_one_line
     maxlength: 87
   - "Work Telephone": user_work_number
-    datatype: number
+validation code: |
+  if not phone_number_is_valid(user_work_number):
+    validation_error("Please enter a phone number in the format (xxx) xxx-xxxx", field="user_work_number")
+  user_work_number = phone_number_formatted(user_work_number)
+    
 ---
 id: Employment Method of Payment
 question: |
@@ -1292,7 +1298,7 @@ attachment:
       - "users_birthdate": ${ users[0].birthdate.format() }
       - "user_phone_number": ${ users[0].phone_number }
       - "user_mobile_number": ${ users[0].mobile_number }
-      - "user_work_number": ${ "{:,.2f}".format(user_work_number) }
+      - "user_work_number": ${ user_work_number }
       - "user_email": ${ users[0].email }
       - "employer_name": ${ employer_name }
       - "user_is_employed": ${ user_is_employed }

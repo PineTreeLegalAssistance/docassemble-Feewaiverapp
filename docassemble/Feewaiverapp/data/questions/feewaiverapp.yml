@@ -185,6 +185,7 @@ code: |
   set_progress(64)
   financial_affidavit_done
   feewaiverapp_preview_question
+  set_progress(96)
   user_signature
   interview_order_feewaiverapp = True
 ---
@@ -419,9 +420,11 @@ under: |
 ---
 id: preview feewaiverapp
 question: |
-  Preview your Maine Application to Proceed Without Payment of Fees form before you sign it
+  Preview your Maine Application to Proceed Without Payment of Fees and Maine Financial Affidavit forms before you sign the Application. 
 subquestion: |
-  Here is a preview of the form you will sign on the next page.   
+  Remember, you will need to review the terms and sign your Financial Affidavit in front of a notary before you can file!
+  
+  Here is a preview of the forms.   
   
   ${ al_court_bundle.as_pdf(key='preview') }
 
@@ -1139,7 +1142,7 @@ attachment:
       - "users_birthdate": ${ users[0].birthdate.format() }
       - "user_phone_number": ${ users[0].phone_number }
       - "user_mobile_number": ${ users[0].mobile_number }
-      - "user_work_number": ${ "{:,.2f}".format(user_work_number) }
+      - "user_work_number": ${ user_work_number }
       - "user_email": ${ users[0].email }
       - "employer_name": ${ employer_name }
       - "user_is_employed": ${ user_is_employed }
