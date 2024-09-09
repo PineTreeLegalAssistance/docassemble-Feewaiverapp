@@ -103,8 +103,8 @@ code: |
   users[0].address.address
   users[0].phone_number
   set_progress(32)
-  users[0].mobile_number
-  users[0].email
+  #users[0].mobile_number
+  #users[0].email
   user_is_employed
   if user_is_employed == True:
     employer_name
@@ -172,16 +172,16 @@ subquestion: |
 #  Welcome to the Maine Financial Affidavit form!
 #continue button field: Introduction
 ---
-id: Court type
-question: |
-  What court is your case in?
-fields:
-  - no label: court_type
-    datatype: radio
-    choices:
-      - District: district
-      - Superior: superior
-      - Criminal: criminal
+#id: Court type
+#question: |
+#  What court is your case in?
+#fields:
+#  - no label: court_type
+#    datatype: radio
+#    choices:
+#      - District: district
+#      - Superior: superior
+#      - Criminal: criminal
 ---
 #id: Court location county
 #question: |
@@ -213,6 +213,21 @@ code: support_fee_waiver = True
 #fields:
 #  - "Why are you filing this form with the court?": support_other_text
 #    maxlength: 78
+---
+id: Contact info
+question: |
+  How can the court contact you?
+subquestion: |
+
+fields:
+  - Phone number: users[0].phone_number
+  - Mobile phone number (if different): users[0].mobile_number
+    required: False
+  - Email: users[0].email
+validation code: |
+  if not phone_number_is_valid(users[0].phone_number):
+    validation_error("Please enter a phone number in the format (xxx) xxx-xxxx", field="users[0].phone_number")
+  users[0].phone_number = phone_number_formatted(users[0].phone_number)
 ---
 id: Employment Status
 question: |
