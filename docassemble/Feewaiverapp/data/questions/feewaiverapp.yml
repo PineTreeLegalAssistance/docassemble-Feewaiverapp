@@ -529,6 +529,403 @@ review:
     button: |
       **Please explain why you are asking the court to pay service fees without first trying service by mail.**:
       > ${ single_paragraph(no_service_by_mail_reason) }
+  - Edit: user_work_number
+    button: |
+      **Work Telephone**:
+      ${ user_work_number }
+  - Edit: employer_name
+    button: |
+      **Employer name**:
+      ${ employer_name }
+  - Edit: user_is_employed
+    button: |
+      **Are you employed?**:
+      ${ word(yesno(user_is_employed)) }
+  - Edit: employer_address_on_one_line
+    button: |
+      **Employer address**:
+      ${ employer_address_on_one_line }
+  - Edit: user_gross_pay
+    button: |
+      **What is your gross pay?**:
+      ${ currency(user_gross_pay) }
+  - Edit: user_pay_salary
+    button: |
+      **Are you paid a salary?**:
+      ${ word(yesno(user_pay_salary)) }
+  - Edit: user_salary_paid_weekly
+    button: |
+      **Paid weekly**:
+      ${ word(yesno(user_salary_paid_weekly)) }
+  - Edit: user_salary_paid_biweekly
+    button: |
+      **Paid biweekly**:
+      ${ word(yesno(user_salary_paid_biweekly)) }
+  - Edit: user_salary_paid_monthly
+    button: |
+      **Paid monthly**:
+      ${ word(yesno(user_salary_paid_monthly)) }
+  - Edit: user_salary_paid_other_term
+    button: |
+      **Payment schedule**:
+      ${ user_salary_paid_other_term }
+  - Edit: user_salary_paid_other
+    button: |
+      **Paid on another schedule**:
+      ${ word(yesno(user_salary_paid_other)) }
+  - Edit: user_hourly_wage
+    button: |
+      **User hourly wage**:
+      ${ user_hourly_wage }
+  - Edit: user_hours_worked
+    button: |
+      **User hours worked**:
+      ${ user_hours_worked }
+  - Edit: user_pay_wages
+    button: |
+      **Are you paid hourly wages?**:
+      ${ word(yesno(user_pay_wages)) }
+  - Edit: user_hours_worked_weekly
+    button: |
+      **Weekly hours worked**:
+      ${ word(yesno(user_hours_worked_weekly)) }
+  - Edit: user_hours_worked_biweekly
+    button: |
+      **Biweekly hours worked**:
+      ${ word(yesno(user_hours_worked_biweekly)) }
+  - Edit: user_hours_worked_monthly
+    button: |
+      **Monthly hours worked**:
+      ${ word(yesno(user_hours_worked_monthly)) }
+  - Edit: user_hours_worked_other_term
+    button: |
+      **Other term you worked?**:
+      ${ user_hours_worked_other_term }
+  - Edit: user_hours_worked_other
+    button: |
+      **Other term hours worked**:
+      ${ word(yesno(user_hours_worked_other)) }
+  - Edit: user_gets_benefits
+    button: |
+      **Do you get any benefits?**:
+      ${ word(yesno(user_gets_benefits)) }
+  - Edit: benefits_unemployment
+    button: |
+      **Unemployment**:
+      ${ word(yesno(benefits_unemployment)) }
+  - Edit: benefits_social_security
+    button: |
+      **Social Security**:
+      ${ word(yesno(benefits_social_security)) }
+  - Edit: benefits_tanf
+    button: |
+      **TANF**:
+      ${ word(yesno(benefits_tanf)) }
+  - Edit: benefits_spousal_child_support
+    button: |
+      **Spousal or Child Support**:
+      ${ word(yesno(benefits_spousal_child_support)) }
+  - Edit: benefits_other
+    button: |
+      **Other benefits**:
+      ${ word(yesno(benefits_other)) }
+  - Edit: benefits_other_text
+    button: |
+      **What other benefits?**:
+      ${ benefits_other_text }
+  - Edit: benefits_total_value
+    button: |
+      **Benefits total value**:
+      ${ currency(benefits_total_value) }
+  - Edit: benefits_time_weekly
+    button: |
+      **I get this amount in benefits weekly**:
+      ${ word(yesno(benefits_time_weekly)) }
+  - Edit: benefits_time_biweekly
+    button: |
+      **I get this amount in benefits biweekly**:
+      ${ word(yesno(benefits_time_biweekly)) }
+  - Edit: benefits_time_monthly
+    button: |
+      **I get this amount in benefits monthly**:
+      ${ word(yesno(benefits_time_monthly)) }
+  - Edit: benefits_time_other
+    button: |
+      **I get this amount in benefits on another schedule**:
+      ${ word(yesno(benefits_time_other)) }
+  - Edit: benefits_time_other_term
+    button: |
+      **I get these benefits on this schedule**:
+      ${ benefits_time_other_term }
+  - Edit: asset_cash_bail
+    button: |
+      **Cash Bail you have paid in this case**:
+      ${ word(yesno(asset_cash_bail)) }
+  - Edit: asset_cash_bail_amount
+    button: |
+      **Amount of cash bail you paid in this case**:
+      ${ currency(asset_cash_bail_amount) }
+  - Edit: asset_cash_on_hand_amount
+    button: |
+      **How much cash on hand?**:
+      ${ currency(asset_cash_on_hand_amount) }
+  - Edit: asset_cash_in_bank_amount
+    button: |
+      **How much money in the bank?**:
+      ${ currency(asset_cash_in_bank_amount) }
+  - Edit: asset_owed_money_amount
+    button: |
+      **How much money are you owed?**:
+      ${ currency(asset_owed_money_amount) }
+  - Edit: asset_cash_on_hand
+    button: |
+      **Do you have any cash on hand?**:
+      ${ word(yesno(asset_cash_on_hand)) }
+  - Edit: asset_cash_in_bank
+    button: |
+      **Do you have any money in the bank?**:
+      ${ word(yesno(asset_cash_in_bank)) }
+  - Edit: asset_owed_money
+    button: |
+      **Does anyone owe you money?**:
+      ${ word(yesno(asset_owed_money)) }
+  - Edit: asset_user_owns_house
+    button: |
+      **Do you own a house?**:
+      ${ word(yesno(asset_user_owns_house)) }
+  - Edit: asset_user_owns_house_value
+    button: |
+      **What is the value of the house you own?**:
+      ${ currency(asset_user_owns_house_value) }
+  - Edit: asset_user_owns_house_amount_owed
+    button: |
+      **How much do you still owe on the house?**:
+      ${ currency(asset_user_owns_house_amount_owed) }
+  - Edit: asset_user_owns_vehicle_value
+    button: |
+      **How much is the vehicle worth?**:
+      ${ currency(asset_user_owns_vehicle_value) }
+  - Edit: asset_user_owns_stocks_value
+    button: |
+      **How much are your stocks worth?**:
+      ${ currency(asset_user_owns_stocks_value) }
+  - Edit: asset_user_owns_vehicle
+    button: |
+      **Do you own a vehicle?**:
+      ${ word(yesno(asset_user_owns_vehicle)) }
+  - Edit: asset_user_owns_stocks
+    button: |
+      **Do you own stocks?**:
+      ${ word(yesno(asset_user_owns_stocks)) }
+  - Edit: asset_user_owns_recreational_vehicle
+    button: |
+      **Do you own any recreational vehicles (like boats or ATVs)?**:
+      ${ word(yesno(asset_user_owns_recreational_vehicle)) }
+  - Edit: asset_user_owns_recreational_vehicle_value
+    button: |
+      **How much are any recreational vehicles you own worth?**:
+      ${ currency(asset_user_owns_recreational_vehicle_value) }
+  - Edit: asset_user_owns_other_text
+    button: |
+      **What other valuables do you have?**:
+      ${ asset_user_owns_other_text }
+  - Edit: asset_user_owns_other_value
+    button: |
+      **How much are those other valuables worth?**:
+      ${ currency(asset_user_owns_other_value) }
+  - Edit: asset_user_owns_other
+    button: |
+      **Do you have any other valuables worth $250 or more?**:
+      ${ word(yesno(asset_user_owns_other)) }
+  - Edit: expense_mortgage
+    button: |
+      **Do you pay a mortgage?**:
+      ${ word(yesno(expense_mortgage)) }
+  - Edit: expense_child_support
+    button: |
+      **Do you pay child support?**:
+      ${ word(yesno(expense_child_support)) }
+  - Edit: expense_utilities
+    button: |
+      **Do you pay utilities?**:
+      ${ word(yesno(expense_utilities)) }
+  - Edit: expense_mortgage_amount
+    button: |
+      **Monthly mortgage amount**:
+      ${ currency(expense_mortgage_amount) }
+  - Edit: expense_child_support_amount
+    button: |
+      **Monthly child support amount**:
+      ${ currency(expense_child_support_amount) }
+  - Edit: expense_utilities_amount
+    button: |
+      **Monthly utilities amount**:
+      ${ currency(expense_utilities_amount) }
+  - Edit: expense_food
+    button: |
+      **Food costs?**:
+      ${ word(yesno(expense_food)) }
+  - Edit: expense_cable
+    button: |
+      **Cable costs?**:
+      ${ word(yesno(expense_cable)) }
+  - Edit: expense_credit_card
+    button: |
+      **Credit card payments?**:
+      ${ word(yesno(expense_credit_card)) }
+  - Edit: expense_food_amount
+    button: |
+      **Monthly food costs**:
+      ${ currency(expense_food_amount) }
+  - Edit: expense_cable_amount
+    button: |
+      **Monthly cable costs**:
+      ${ currency(expense_cable_amount) }
+  - Edit: expense_credit_card_amount
+    button: |
+      **Monthly credit card payments**:
+      ${ currency(expense_credit_card_amount) }
+  - Edit: expense_loans
+    button: |
+      **Loan payments?**:
+      ${ word(yesno(expense_loans)) }
+  - Edit: expense_heat
+    button: |
+      **Heating costs?**:
+      ${ word(yesno(expense_heat)) }
+  - Edit: expense_rent
+    button: |
+      **Do you pay rent?**:
+      ${ word(yesno(expense_rent)) }
+  - Edit: expense_loans_amount
+    button: |
+      **Monthly loan payments**:
+      ${ currency(expense_loans_amount) }
+  - Edit: expense_heat_amount
+    button: |
+      **Monthly heating costs**:
+      ${ currency(expense_heat_amount) }
+  - Edit: expense_rent_amount
+    button: |
+      **Monthly rent amount**:
+      ${ currency(expense_rent_amount) }
+  - Edit: expense_cell_phone
+    button: |
+      **Cell phone costs?**:
+      ${ word(yesno(expense_cell_phone)) }
+  - Edit: expense_other
+    button: |
+      **Other expenses?**:
+      ${ word(yesno(expense_other)) }
+  - Edit: expense_cell_phone_amount
+    button: |
+      **Monthly cell phone costs**:
+      ${ currency(expense_cell_phone_amount) }
+  - Edit: expense_other_text
+    button: |
+      **What other expenses do you have?**:
+      ${ expense_other_text }
+  - Edit: expense_other_amount
+    button: |
+      **What is the monthly amount of any other expenses you have?**:
+      ${ currency(expense_other_amount) }
+  - Edit: number_children_live_with_user
+    button: |
+      **How many children live with you?**:
+      ${ number_children_live_with_user }
+  - Edit: children_live_with_user
+    button: |
+      **Do any children live with you?**:
+      ${ word(yesno(children_live_with_user)) }
+  - Edit: user_pays_child_support_for_number_of_children
+    button: |
+      **How many children do you pay child support for?**:
+      ${ user_pays_child_support_for_number_of_children }
+  - Edit: user_pays_child_support_amount
+    button: |
+      **How much child support do you pay?**:
+      ${ currency(user_pays_child_support_amount) }
+  - Edit: user_pays_child_support
+    button: |
+      **Do you pay child support?**:
+      ${ word(yesno(user_pays_child_support)) }
+  - Edit: child_support_paid_other_schedule_term
+    button: |
+      **What other schedule do you pay your child support on?**:
+      ${ child_support_paid_other_schedule_term }
+  - Edit: child_support_paid_weekly
+    button: |
+      **Child support paid weekly**:
+      ${ word(yesno(child_support_paid_weekly)) }
+  - Edit: child_support_paid_biweekly
+    button: |
+      **Child support paid biweekly**:
+      ${ word(yesno(child_support_paid_biweekly)) }
+  - Edit: child_support_paid_monthly
+    button: |
+      **Child support paid monthly**:
+      ${ word(yesno(child_support_paid_monthly)) }
+  - Edit: child_support_paid_other_schedule
+    button: |
+      **Child support paid on another schedule**:
+      ${ word(yesno(child_support_paid_other_schedule)) }
+  - Edit: user_lives_alone
+    button: |
+      **Do you live alone?**:
+      ${ word(yesno(user_lives_alone)) }
+  - Edit: user_lives_with_someone
+    button: |
+      **Do you live with anyone?**:
+      ${ word(yesno(user_lives_with_someone)) }
+  - Edit: user_lives_with_spouse
+    button: |
+      **Lives with spouse**:
+      ${ word(yesno(user_lives_with_spouse)) }
+  - Edit: user_lives_with_friend
+    button: |
+      **Lives with friend**:
+      ${ word(yesno(user_lives_with_friend)) }
+  - Edit: user_lives_with_parent
+    button: |
+      **Lives with parent(s)**:
+      ${ word(yesno(user_lives_with_parent)) }
+  - Edit: user_lives_with_other
+    button: |
+      **Lives with others**:
+      ${ word(yesno(user_lives_with_other)) }
+  - Edit: user_lives_with_other_text
+    button: |
+      **Who do you live with?**:
+      ${ user_lives_with_other_text }
+  - Edit: shared_living_expenses_amount
+    button: |
+      **How much do others contribute to your shared living expenses?**:
+      ${ currency(shared_living_expenses_amount) }
+  - Edit: user_shares_living_expenses
+    button: |
+      **Do you share living expenses with those you live with?**:
+      ${ word(yesno(user_shares_living_expenses)) }
+  - Edit: shared_living_expenses_other_term
+    button: |
+      **What other schedule do you use for sharing living expenses?**:
+      ${ shared_living_expenses_other_term }
+  - Edit: shared_living_expenses_weekly
+    button: |
+      **They contribute to expenses weekly**:
+      ${ word(yesno(shared_living_expenses_weekly)) }
+  - Edit: shared_living_expenses_biweekly
+    button: |
+      **They contribute to expenses biweekly**:
+      ${ word(yesno(shared_living_expenses_biweekly)) }
+  - Edit: shared_living_expenses_monthly
+    button: |
+      **They contribute to expenses monthly**:
+      ${ word(yesno(shared_living_expenses_monthly)) }
+  - Edit: shared_living_expenses_other
+    button: |
+      **They contribute to expenses on  another schedule**:
+      ${ word(yesno(shared_living_expenses_other)) }
+  
   - Edit: users.revisit
     button: |
       **Users**
