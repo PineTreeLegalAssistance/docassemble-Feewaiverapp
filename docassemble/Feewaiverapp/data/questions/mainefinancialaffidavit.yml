@@ -113,6 +113,7 @@ code: |
       pay_period_salary
     else:
       user_hours_worked
+    user_pay_salary
   user_gets_benefits
   if user_gets_benefits == True:
     user_benefits_selection
@@ -193,7 +194,7 @@ subquestion: |
 id: Court location town
 question: |
 fields:  
-  - What is the name of the town where the court is located?: court_town
+  - Town or city where the court is located?: court_town
     code: court_list._load_courts()["address_town"].unique()
 ---
 id: Fee waiver support set
@@ -304,6 +305,13 @@ fields:
       is: user_hours_worked_other
     maxlength: 18
 ---
+#mandatory: True
+code: |
+  if user_pay_wages == False:
+    user_pay_salary = True
+  else:
+    user_pay_salary = False
+---
 id: Benefits
 question: |
   Benefits, Child & Spousal Support
@@ -311,7 +319,7 @@ fields:
   - "Do you get any public benefits, or have child or spousal support paid to you?": user_gets_benefits
     datatype: yesnoradio
 under: |
-  By 'benefits' we mean public benefits like TANF as well as Social Security, Unemployment, and spousal or child support.
+  By 'benefits' we mean public benefits like TANF and General Assistance, as well as Social Security, and Unemployment.
 ---
 id: Benefits Detail
 question: |
@@ -1331,7 +1339,7 @@ attachment:
       - "user_is_employed": ${ user_is_employed }
       - "employer_address_on_one_line": ${ employer_address_on_one_line }
       - "user_gross_pay": ${ currency(user_gross_pay) }
-      - "user_pay_salary": ${ user_pay_salary }
+      #- "user_pay_salary": ${ user_pay_salary }
       - "user_salary_paid_weekly": ${ pay_period_salary == "user_salary_paid_weekly" }
       - "user_salary_paid_biweekly": ${ pay_period_salary == "user_salary_paid_biweekly" }
       - "user_salary_paid_monthly": ${ pay_period_salary == "user_salary_paid_monthly" }
@@ -1340,6 +1348,7 @@ attachment:
       - "user_hourly_wage": ${ user_hourly_wage }
       - "user_hours_worked": ${ user_hours_worked }
       - "user_pay_wages": ${ user_pay_wages }
+      - "user_pay_salary": ${ user_pay_salary }
       - "user_hours_worked_weekly": ${ pay_period_wage == "user_hours_worked_weekly" }
       - "user_hours_worked_biweekly": ${ pay_period_wage == "user_hours_worked_biweekly" }
       - "user_hours_worked_monthly": ${ pay_period_wage == "user_hours_worked_monthly" }
