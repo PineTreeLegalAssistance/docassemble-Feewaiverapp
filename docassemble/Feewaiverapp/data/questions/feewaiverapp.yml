@@ -404,9 +404,12 @@ subquestion: |
   <li>You are filing this in good faith.</li> 
   <li>You are not able to pay the fees you have asked to have waived.</li> 
   <li>If you become able to pay those fees while this case is going on, or if you win a settlement, that you will pay any fees that were waived.</li> 
+  <br />
+  <strong>Or you can print the Application and sign it on paper before filing it with the court. Just leave the signature field blank and choose 'Next' if you want to sign your form this way.</strong> 
 signature: user_signature
 under: |
   ${ "Sign your name here" }
+required: False
 ---
 id: preview feewaiverapp
 question: |
