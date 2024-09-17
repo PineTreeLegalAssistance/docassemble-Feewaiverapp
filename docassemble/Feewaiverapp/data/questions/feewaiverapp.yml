@@ -20,6 +20,9 @@ modules:
 code: |
   court_data = court_list._load_courts() 
 ---
+code: |
+  al_form_requires_digital_signature = False
+---
 features:
   css: 
     - ptlatheme.css
@@ -186,7 +189,9 @@ code: |
   financial_affidavit_done
   feewaiverapp_preview_question
   set_progress(96)
-  user_signature
+  saw_signature_choice
+  if signature_choice == 'this_device':
+    user_signature
   interview_order_feewaiverapp = True
 ---
 ###################### Main order ######################
@@ -394,22 +399,40 @@ fields:
     datatype: email
     required: False
 ---
+id: signature choice
+decoration: file-signature
+question: |
+  Your documents are almost ready
+subquestion: |
+  How do you want to sign them?
+fields: 
+  - I will sign: signature_choice
+    input type: radio
+    choices:
+      - Electronically on this device: this_device
+      - On the paper with a pen after I print the documents: sign_after_printing
+    show if:
+      code: |
+        not al_form_requires_digital_signature
+continue button field: saw_signature_choice        
+---
 id: Signature test
 question: |
   Sign your Application to Proceed Without Payment of Fees
 subquestion: |
+  Sign your form using your finger on a touchscreen, or a mouse - your signature will be added to your form.
+  <br />
+  <br />
   By signing your name, you are saying that: 
   <ol>
   <li>The information on this form is true.</li> 
   <li>You are filing this in good faith.</li> 
   <li>You are not able to pay the fees you have asked to have waived.</li> 
   <li>If you become able to pay those fees while this case is going on, or if you win a settlement, that you will pay any fees that were waived.</li> 
-  <br />
-  <strong>Or you can print the Application and sign it on paper before filing it with the court. Just leave the signature field blank and choose 'Next' if you want to sign your form this way.</strong> 
+
 signature: user_signature
 under: |
   ${ "Sign your name here" }
-required: False
 ---
 id: preview feewaiverapp
 question: |
