@@ -316,10 +316,10 @@ id: Benefits
 question: |
   Benefits, Child & Spousal Support
 fields:
-  - "Do you get any public benefits, or have child or spousal support paid to you?": user_gets_benefits
+  - "Do you get any benefits, or have child or spousal support paid to you?": user_gets_benefits
     datatype: yesnoradio
 under: |
-  By 'benefits' we mean public benefits like TANF and General Assistance, as well as Social Security, and Unemployment.
+  By 'benefits' we mean public benefits like TANF and General Assistance and benefits like Veterans Benefits, Social Security, and Unemployment. For this form, SNAP (food supplements/food stamps) <strong>does not</strong> count as income.
 ---
 id: Benefits Detail
 question: |
@@ -334,6 +334,8 @@ fields:
       - TANF: benefits_tanf
       - Spousal and/or Child Support: benefits_spousal_child_support
       - Other (like General Assistance): benefits_other
+    note: |
+      For this form, SNAP (food supplements/food stamps) <strong>does not</strong> count as income.
   - Other Benefits (please list all): benefits_other_text
     show if: 
       variable: user_benefits_selection["benefits_other"]
@@ -560,12 +562,12 @@ fields:
     datatype: currency
     currency symbol: ''
     min: 0    
-  - "Do you have other monthly expenses?": expense_other
+  - "Do you have other monthly expenses? (Common examples: Internet, child care, insurance for car, home, health, etc.)": expense_other
     datatype: yesnoradio
   - "What other expenses do you have?": expense_other_text
     show if: expense_other
     maxlength: 19
-  - "What is the monthly amount of any other expenses you have?": expense_other_amount
+  - "What is the total monthly amount of any other expenses you have?": expense_other_amount
     show if: expense_other
     datatype: currency
     currency symbol: ''

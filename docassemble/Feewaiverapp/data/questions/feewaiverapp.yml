@@ -340,6 +340,8 @@ code: |
 ---
 question: |
   Is this case in District Court?
+subquestion: |
+  If you aren't sure, look at the top of your court paperwork.
 field: court_selection
 buttons:
   - "Yes, it's in District Court": True
@@ -383,6 +385,8 @@ yesno: no_service_by_mail
 id: service by mail take two
 question: |
   Please explain why you are asking the court to pay service fees without first trying service by mail. 
+subquestion: |
+  Some common reasons could be not having a mailing address for the other party, or that you are afraid of contacting the other party by mail.
 fields: 
   - Reasons for not trying service by mail: no_service_by_mail_reason
     input type: area
