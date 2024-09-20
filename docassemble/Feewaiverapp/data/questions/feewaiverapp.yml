@@ -183,7 +183,8 @@ code: |
   set_progress(32)
   signature_date
   set_progress(48)
-  users[0].address.address
+  user_address
+  #users[0].address.address
   #user_email
   set_progress(64)
   financial_affidavit_done
@@ -391,6 +392,24 @@ fields:
   - Reasons for not trying service by mail: no_service_by_mail_reason
     input type: area
     maxlength: 270 
+---
+id: user address
+sets:
+    - users[0].address.address
+    - users[0].address.unit
+    - users[0].address.city
+    - users[0].address.state
+    - users[0].address.zip
+question:  |
+  What is your address?
+fields:
+    - Street address: users[0].address.address
+    - Unit/Apartment: users[0].address.unit
+      required: False
+    - City/Town: users[0].address.city
+    - State: users[0].address.state
+    - Zip code: users[0].address.zip
+continue button field: user_address
 ---
 id: contact info
 question: |
