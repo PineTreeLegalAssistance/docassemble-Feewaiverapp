@@ -1226,7 +1226,7 @@ attachment:
       - "asset_user_owns_house": ${ asset_user_owns_house }
       - "asset_user_owns_house_value": ${ currency((asset_user_owns_house_value), symbol='') }
       - "asset_user_owns_house_amount_owed": ${ currency((asset_user_owns_house_amount_owed), symbol='') }
-      - "asset_user_owns_vehicle_value": ${ currency((asset_user_owns_vehicle_value), symbol='') }
+      - "asset_user_owns_vehicle_value": ${ currency((asset_user_owns_vehicle_value), symbol='') }${ " in equity" if asset_user_owns_vehicle == True else "" }
       - "asset_user_owns_stocks_value": ${ currency((asset_user_owns_stocks_value), symbol='') }
       - "asset_user_owns_vehicle": ${ asset_user_owns_vehicle }
       - "asset_user_owns_stocks": ${ asset_user_owns_stocks }
