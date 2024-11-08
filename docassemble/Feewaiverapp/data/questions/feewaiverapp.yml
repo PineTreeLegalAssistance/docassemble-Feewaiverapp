@@ -1231,9 +1231,9 @@ attachment:
       - "asset_user_owns_vehicle": ${ asset_user_owns_vehicle }
       - "asset_user_owns_stocks": ${ asset_user_owns_stocks }
       - "asset_user_owns_recreational_vehicle": ${ asset_user_owns_recreational_vehicle }
-      - "asset_user_owns_recreational_vehicle_value": ${ currency((asset_user_owns_recreational_vehicle_value), symbol='') }
+      - "asset_user_owns_recreational_vehicle_value": ${ currency((asset_user_owns_recreational_vehicle_value), symbol='') }${ " in equity" if asset_user_owns_recreational_vehicle == True else "" }
       - "asset_user_owns_other_text": ${ asset_user_owns_other_text }
-      - "asset_user_owns_other_value": ${ currency((asset_user_owns_other_value), symbol='') }
+      - "asset_user_owns_other_value": ${ currency((asset_user_owns_other_value), symbol='') }${ " in equity" if asset_user_owns_other == True else "" }
       - "asset_user_owns_other": ${ asset_user_owns_other }
       - "expense_mortgage": ${ expense_mortgage }
       - "expense_child_support": ${ expense_child_support }

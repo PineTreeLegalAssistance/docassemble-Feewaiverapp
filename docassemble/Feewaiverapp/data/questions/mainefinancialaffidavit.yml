@@ -434,18 +434,22 @@ fields:
     min: 0
   - "Do you own a vehicle?": asset_user_owns_vehicle
     datatype: yesnoradio
-  - "How much is the vehicle worth?": asset_user_owns_vehicle_value
+  - "How much equity do you have in this vehicle?": asset_user_owns_vehicle_value
     show if: asset_user_owns_vehicle
     datatype: currency
     currency symbol: ''
     min: 0
+    note: |
+      ‘Equity’ is the value minus any liens or loans against the property. In other words, if you were to sell that vehicle tomorrow at market value and pay off any loans on it, how much would you make afterward, if anything?
   - "Do you own any recreational vehicles (like boats or ATVs)?": asset_user_owns_recreational_vehicle
     datatype: yesnoradio
-  - "How much are any recreational vehicles you own worth?": asset_user_owns_recreational_vehicle_value
+  - "How much equity do you have in these vehicles?": asset_user_owns_recreational_vehicle_value
     show if: asset_user_owns_recreational_vehicle
     datatype: currency
     currency symbol: ''
     min: 0
+    note: |
+      ‘Equity’ is the value minus any liens or loans against the property. In other words, if you were to sell these vehicles tomorrow at market value and pay off any loans on them, how much would you make afterward, if anything?
   - "Do you own stocks?": asset_user_owns_stocks
     datatype: yesnoradio
   - "How much are your stocks worth?": asset_user_owns_stocks_value
