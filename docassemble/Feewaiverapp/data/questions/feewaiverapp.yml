@@ -172,6 +172,7 @@ code: |
   court_data
   #court_county
   docket_number
+  users[0].email
   set_progress(16)
   filing_fee
   if service_costs == True:
@@ -355,6 +356,24 @@ code: |
   else:
     court_district = False
     court_superior = True
+---
+id: Contact info
+question: |
+  How can the court contact you?
+fields:
+  - Phone number: users[0].phone_number
+  - Mobile phone number (if different): users[0].mobile_number
+    required: False
+  - Email: users[0].email
+    required: False
+validation code: |
+  if not phone_number_is_valid(users[0].phone_number):
+    validation_error("Please enter a phone number in the format (xxx) xxx-xxxx", field="users[0].phone_number")
+  users[0].phone_number = phone_number_formatted(users[0].phone_number)  
+  if users[0].mobile_number: 
+    if not phone_number_is_valid(users[0].mobile_number):
+      validation_error("Please enter a phone number in the format (xxx) xxx-xxxx",     field="users[0].mobile_number")
+    users[0].mobile_number = phone_number_formatted(users[0].mobile_number)
 ---
 id: Fee Waiver Request
 question: |
@@ -1105,7 +1124,9 @@ attachment:
   filename: feewaiverapp
   variable name: feewaiverapp_attachment[i]
   skip undefined: True
-  pdf template file: feewaiverapp_maine_clean_labeled.pdf
+  pdf template file: feewaiverapp_maine_clean_labeled_replaced_2_fields.pdf
+  #pdf template file: feewaiverapp_maine_clean_labeled_nuance.pdf
+  #pdf template file: feewaiverapp_maine_clean_labeled.pdf
   fields:
       - "plaintiffs_name": ${ plaintiffs[0] }
       - "plaintiffs1_name": ${ plaintiffs[1] }

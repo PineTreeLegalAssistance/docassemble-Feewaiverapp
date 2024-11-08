@@ -101,7 +101,7 @@ code: |
   set_parts(subtitle=str(users))
   users[0].birthdate
   users[0].address.address
-  users[0].phone_number
+  #users[0].phone_number
   set_progress(32)
   #users[0].mobile_number
   #users[0].email
